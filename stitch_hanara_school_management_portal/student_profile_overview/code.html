@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Student Profile - Hanara Schools</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-fixed": "#ffddb8",
+                      "on-tertiary-fixed": "#0b1c30",
+                      "background": "#faf8ff",
+                      "tertiary-fixed-dim": "#b7c8e1",
+                      "surface-container-low": "#f4f3fa",
+                      "surface-container-highest": "#e3e1e9",
+                      "surface-tint": "#4059aa",
+                      "surface": "#faf8ff",
+                      "primary": "#00236f",
+                      "tertiary-fixed": "#d3e4fe",
+                      "on-secondary-container": "#684000",
+                      "surface-dim": "#dad9e1",
+                      "on-tertiary-fixed-variant": "#38485d",
+                      "error-container": "#ffdad6",
+                      "error": "#ba1a1a",
+                      "secondary-fixed-dim": "#ffb95f",
+                      "outline-variant": "#c5c5d3",
+                      "tertiary": "#1b2b3f",
+                      "on-error-container": "#93000a",
+                      "inverse-on-surface": "#f1f0f7",
+                      "surface-container": "#eeedf4",
+                      "secondary": "#855300",
+                      "primary-fixed": "#dce1ff",
+                      "on-error": "#ffffff",
+                      "on-tertiary": "#ffffff",
+                      "outline": "#757682",
+                      "surface-bright": "#faf8ff",
+                      "on-secondary": "#ffffff",
+                      "on-background": "#1a1b21",
+                      "on-surface": "#1a1b21",
+                      "surface-variant": "#e3e1e9",
+                      "on-tertiary-container": "#9dadc6",
+                      "surface-container-lowest": "#ffffff",
+                      "tertiary-container": "#314156",
+                      "secondary-container": "#fea619",
+                      "primary-fixed-dim": "#b6c4ff",
+                      "surface-container-high": "#e9e7ef",
+                      "on-surface-variant": "#444651",
+                      "on-primary-fixed": "#00164e",
+                      "on-secondary-fixed": "#2a1700",
+                      "on-primary": "#ffffff",
+                      "inverse-primary": "#b6c4ff",
+                      "on-primary-fixed-variant": "#264191",
+                      "on-secondary-fixed-variant": "#653e00",
+                      "primary-container": "#1e3a8a",
+                      "on-primary-container": "#90a8ff",
+                      "inverse-surface": "#2f3036"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "unit": "4px",
+                      "stack-sm": "8px",
+                      "gutter": "16px",
+                      "container-margin": "24px",
+                      "stack-md": "16px",
+                      "section-gap": "32px"
+              },
+              "fontFamily": {
+                      "headline-lg-mobile": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "display-lg": ["Inter"],
+                      "body-md": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "title-lg": ["Inter"],
+                      "label-md": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .shadow-level-1 { box-shadow: 0px 1px 3px rgba(0,0,0,0.05), 0px 10px 15px -3px rgba(0,0,0,0.02); }
+    </style>
+</head>
+<body class="bg-background text-on-background flex h-screen overflow-hidden">
+<!-- SideNavBar -->
+<aside class="hidden md:flex flex-col h-full py-6 px-4 fixed left-0 top-0 h-screen w-64 border-r border-outline-variant bg-surface shrink-0 z-50">
+<div class="mb-8 px-2 flex flex-col gap-2">
+<h1 class="font-title-lg text-title-lg font-bold text-primary">Hanara Schools</h1>
+<p class="font-body-md text-body-md font-medium text-on-surface-variant">Admin Portal</p>
+<button class="mt-4 w-full bg-secondary-container text-on-secondary-container font-label-md text-label-md py-2 px-4 rounded-lg flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                New Admission
+            </button>
+</div>
+<nav class="flex-1 overflow-y-auto space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant opacity-80 hover:bg-surface-container-high hover:text-primary transition-colors font-body-md text-body-md font-medium" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                Dashboard
+            </a>
+<!-- Active Tab: Students -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-primary font-bold border-r-4 border-primary bg-primary-fixed/10 scale-[0.98] transition-transform duration-150 font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
+                Students
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant opacity-80 hover:bg-surface-container-high hover:text-primary transition-colors font-body-md text-body-md font-medium" href="#">
+<span class="material-symbols-outlined">how_to_reg</span>
+                Admissions
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant opacity-80 hover:bg-surface-container-high hover:text-primary transition-colors font-body-md text-body-md font-medium" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+                Attendance
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant opacity-80 hover:bg-surface-container-high hover:text-primary transition-colors font-body-md text-body-md font-medium" href="#">
+<span class="material-symbols-outlined">school</span>
+                Academics
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant opacity-80 hover:bg-surface-container-high hover:text-primary transition-colors font-body-md text-body-md font-medium" href="#">
+<span class="material-symbols-outlined">payments</span>
+                Finance
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant opacity-80 hover:bg-surface-container-high hover:text-primary transition-colors font-body-md text-body-md font-medium" href="#">
+<span class="material-symbols-outlined">chat</span>
+                Communication
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant opacity-80 hover:bg-surface-container-high hover:text-primary transition-colors font-body-md text-body-md font-medium" href="#">
+<span class="material-symbols-outlined">badge</span>
+                Staff
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant opacity-80 hover:bg-surface-container-high hover:text-primary transition-colors font-body-md text-body-md font-medium" href="#">
+<span class="material-symbols-outlined">settings</span>
+                Settings
+            </a>
+</nav>
+<div class="mt-auto pt-4 border-t border-outline-variant space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant opacity-80 hover:bg-surface-container-high hover:text-primary transition-colors font-body-md text-body-md font-medium" href="#">
+<span class="material-symbols-outlined">event_note</span>
+                Academic Term
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant opacity-80 hover:bg-surface-container-high hover:text-primary transition-colors font-body-md text-body-md font-medium" href="#">
+<span class="material-symbols-outlined">account_circle</span>
+                Profile
+            </a>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<div class="flex-1 flex flex-col md:ml-64 h-full">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center w-full px-gutter py-stack-md bg-surface border-b border-outline-variant sticky top-0 z-40 shrink-0">
+<div class="flex items-center gap-4">
+<button class="md:hidden text-on-surface-variant hover:bg-surface-container rounded-full p-2 transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div class="hidden md:flex items-center relative">
+<span class="material-symbols-outlined absolute left-3 text-outline">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant rounded-lg text-body-md font-body-md focus:border-primary focus:ring-2 focus:ring-primary-fixed-dim focus:outline-none transition-all w-64" placeholder="Search students, staff..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:bg-surface-container rounded-full p-2 transition-colors opacity-80 hover:opacity-100">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="h-8 w-8 rounded-full bg-primary-fixed overflow-hidden flex items-center justify-center border border-outline-variant cursor-pointer">
+<img alt="User Avatar" class="w-full h-full object-cover" data-alt="A small circular avatar placeholder image for the currently logged in administrator, showing a professional headshot of an adult on a neutral background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGWcELzIKPLHICZiItPkz4GL8uJoLz-8fLjVKDSwlwH0KAnY9Rym8p_URpQMADC5fiGqgmesd9OmjEMNl3Ee3umR2bdmy3UPyjcSThLXd_5Y-Vtd-YpkSefwB40KnpWCi1lz1j1ssgXWDxxcpdIxPdQAxYtDM3TR2B_fbmU7WpAe7lOMnwju1aQoQc2qz0nRBXVKsi-i6KFWtYWtmS8__B6hXl7TOL-SPmSOnndEnYZ6cXJB3U-icDa8sy0z3mRDyOsw8QXuEv6OMN"/>
+</div>
+</div>
+</header>
+<!-- Page Canvas -->
+<main class="flex-1 overflow-y-auto p-4 md:p-container-margin">
+<!-- Breadcrumb -->
+<nav class="mb-6 flex text-label-md font-label-md text-on-surface-variant items-center gap-2">
+<a class="hover:text-primary transition-colors" href="#">Students</a>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-primary font-semibold">Student Profile</span>
+</nav>
+<!-- Header Card -->
+<div class="bg-surface-container-lowest rounded-xl shadow-level-1 border border-outline-variant p-6 mb-section-gap">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+<div class="flex items-center gap-6">
+<div class="h-24 w-24 rounded-full overflow-hidden border-4 border-surface shadow-sm shrink-0">
+<img alt="Kofi Boateng" class="w-full h-full object-cover" data-alt="A bright, high-quality portrait photo of a young elementary school boy wearing a neat blue school uniform. He has a warm smile and is looking directly at the camera. The background is a soft, blurred outdoor setting, conveying a friendly and academic atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjGX9zEJpBnOLMnTdwjWXmWa60NJBWAsY9w0nD0t-jO5uvJiYiM-s9B3oprTQHRNj2sNIAhht8KCwde_xux_dI29PXwb_I0xO1dqbOh7jkd-udqfRTSxFlsO-o9nw9q0xNVSp_ogQ1LRP90Ggxab7wH2agmeRtkAEa9sysKmR16DzrXSVQKMcj0Fc-E2SVQDnt8xu1Zz6KZElvogIkgKoHziw3wetgbmWK7p3Al0vN1-OMcBGDIwxCXmwH0ipAMUGriAzkaiqPr87e"/>
+</div>
+<div class="flex flex-col gap-1">
+<h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">Kofi Boateng</h2>
+<div class="flex flex-wrap items-center gap-3 font-body-md text-body-md text-on-surface-variant">
+<span class="flex items-center gap-1 bg-surface-container-high px-2 py-1 rounded-md text-on-surface"><span class="material-symbols-outlined text-[16px]">school</span> Primary 4</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">badge</span> HS-2023-042</span>
+<span class="flex items-center gap-1 bg-primary-fixed/20 text-primary-container px-2 py-1 rounded-md font-medium"><span class="material-symbols-outlined text-[16px] text-primary">check_circle</span> Active</span>
+</div>
+</div>
+</div>
+<div class="flex flex-wrap gap-3">
+<button class="px-4 py-2 border border-primary text-primary font-label-md text-label-md rounded-lg hover:bg-primary-fixed/10 transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">edit</span> Edit
+                        </button>
+<button class="px-4 py-2 border border-primary text-primary font-label-md text-label-md rounded-lg hover:bg-primary-fixed/10 transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">id_card</span> Generate ID Card
+                        </button>
+<button class="px-4 py-2 bg-secondary-container text-on-secondary-container font-label-md text-label-md rounded-lg hover:bg-secondary-fixed transition-colors flex items-center gap-2 shadow-sm">
+<span class="material-symbols-outlined text-[18px]">print</span> Print Report Card
+                        </button>
+</div>
+</div>
+<!-- Tab Bar -->
+<div class="mt-8 border-b border-outline-variant flex overflow-x-auto hide-scrollbar gap-8">
+<button class="pb-3 border-b-2 border-primary text-primary font-title-lg text-[16px] font-semibold whitespace-nowrap px-1">Overview</button>
+<button class="pb-3 border-b-2 border-transparent text-on-surface-variant hover:text-on-surface font-body-lg text-body-lg font-medium whitespace-nowrap px-1 transition-colors">Attendance</button>
+<button class="pb-3 border-b-2 border-transparent text-on-surface-variant hover:text-on-surface font-body-lg text-body-lg font-medium whitespace-nowrap px-1 transition-colors">Grades</button>
+<button class="pb-3 border-b-2 border-transparent text-on-surface-variant hover:text-on-surface font-body-lg text-body-lg font-medium whitespace-nowrap px-1 transition-colors">Fees</button>
+<button class="pb-3 border-b-2 border-transparent text-on-surface-variant hover:text-on-surface font-body-lg text-body-lg font-medium whitespace-nowrap px-1 transition-colors">Health</button>
+<button class="pb-3 border-b-2 border-transparent text-on-surface-variant hover:text-on-surface font-body-lg text-body-lg font-medium whitespace-nowrap px-1 transition-colors">Documents</button>
+</div>
+</div>
+<!-- Content Area: Overview -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-section-gap items-start">
+<!-- Left Column (Wider) -->
+<div class="lg:col-span-8 space-y-6">
+<!-- Bio-data Card -->
+<div class="bg-surface-container-lowest rounded-xl shadow-level-1 border border-outline-variant overflow-hidden">
+<div class="p-4 border-b border-outline-variant bg-surface-container-low/50">
+<h3 class="font-title-lg text-title-lg text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-outline">person</span> Bio-data
+                            </h3>
+</div>
+<div class="p-6 grid grid-cols-1 sm:grid-cols-2 gap-y-6 gap-x-8">
+<div class="flex flex-col gap-1">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Date of Birth</span>
+<span class="font-body-md text-body-md text-on-surface font-medium">12 May 2014 (9 years)</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Gender</span>
+<span class="font-body-md text-body-md text-on-surface font-medium">Male</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Enrollment Date</span>
+<span class="font-body-md text-body-md text-on-surface font-medium">05 Sep 2023</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Blood Group</span>
+<span class="font-body-md text-body-md text-on-surface font-medium">O+</span>
+</div>
+<div class="flex flex-col gap-1 sm:col-span-2">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Residential Address</span>
+<span class="font-body-md text-body-md text-on-surface font-medium flex items-start gap-1">
+<span class="material-symbols-outlined text-[18px] text-outline mt-0.5">location_on</span>
+                                    14 Mango Street, East Legon, Accra, Ghana
+                                </span>
+</div>
+</div>
+</div>
+<!-- Guardians Card -->
+<div class="bg-surface-container-lowest rounded-xl shadow-level-1 border border-outline-variant overflow-hidden">
+<div class="p-4 border-b border-outline-variant bg-surface-container-low/50">
+<h3 class="font-title-lg text-title-lg text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-outline">family_restroom</span> Guardians
+                            </h3>
+</div>
+<div class="divide-y divide-outline-variant">
+<!-- Guardian 1 -->
+<div class="p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 hover:bg-surface-container-low/30 transition-colors">
+<div class="flex items-center gap-4">
+<div class="h-12 w-12 rounded-full bg-primary-fixed/30 flex items-center justify-center text-primary-container font-title-lg text-title-lg shrink-0">
+                                        AM
+                                    </div>
+<div>
+<h4 class="font-body-lg text-body-lg text-on-surface font-semibold">Adwoa Manu</h4>
+<span class="font-label-md text-label-md text-on-surface-variant">Mother • Primary Contact</span>
+</div>
+</div>
+<div class="flex flex-col gap-2 font-body-md text-body-md text-on-surface-variant w-full sm:w-auto">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">call</span> +233 24 123 4567
+                                    </div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">mail</span> adwoa.m@example.com
+                                    </div>
+</div>
+</div>
+<!-- Guardian 2 -->
+<div class="p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 hover:bg-surface-container-low/30 transition-colors">
+<div class="flex items-center gap-4">
+<div class="h-12 w-12 rounded-full bg-surface-variant flex items-center justify-center text-on-surface-variant font-title-lg text-title-lg shrink-0">
+                                        KB
+                                    </div>
+<div>
+<h4 class="font-body-lg text-body-lg text-on-surface font-semibold">Kwame Boateng</h4>
+<span class="font-label-md text-label-md text-on-surface-variant">Father</span>
+</div>
+</div>
+<div class="flex flex-col gap-2 font-body-md text-body-md text-on-surface-variant w-full sm:w-auto">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">call</span> +233 20 987 6543
+                                    </div>
+<div class="flex items-center gap-2 opacity-50">
+<span class="material-symbols-outlined text-[18px]">mail</span> No email provided
+                                    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column (Narrower) -->
+<div class="lg:col-span-4 flex flex-col gap-4">
+<!-- Stat Card 1 -->
+<div class="bg-surface-container-lowest rounded-xl shadow-level-1 border border-outline-variant p-5 flex items-center gap-4 relative overflow-hidden group">
+<div class="absolute right-0 top-0 w-24 h-full bg-primary-fixed/20 -skew-x-12 translate-x-10 group-hover:translate-x-8 transition-transform"></div>
+<div class="h-12 w-12 rounded-lg bg-primary-container text-on-primary-container flex items-center justify-center shrink-0 z-10">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">calendar_today</span>
+</div>
+<div class="flex flex-col z-10">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase">Attendance Rate</span>
+<span class="font-headline-lg text-[28px] font-bold text-on-surface">96%</span>
+</div>
+</div>
+<!-- Stat Card 2 -->
+<div class="bg-surface-container-lowest rounded-xl shadow-level-1 border border-outline-variant p-5 flex items-center gap-4 relative overflow-hidden group">
+<div class="absolute right-0 top-0 w-24 h-full bg-secondary-fixed/20 -skew-x-12 translate-x-10 group-hover:translate-x-8 transition-transform"></div>
+<div class="h-12 w-12 rounded-lg bg-secondary-container text-on-secondary-container flex items-center justify-center shrink-0 z-10">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">school</span>
+</div>
+<div class="flex flex-col z-10">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase">Current Term Avg</span>
+<span class="font-headline-lg text-[28px] font-bold text-on-surface">82%</span>
+</div>
+</div>
+<!-- Stat Card 3 -->
+<div class="bg-surface-container-lowest rounded-xl shadow-level-1 border border-outline-variant p-5 flex items-center gap-4 relative overflow-hidden group">
+<div class="absolute right-0 top-0 w-24 h-full bg-error-container/20 -skew-x-12 translate-x-10 group-hover:translate-x-8 transition-transform"></div>
+<div class="h-12 w-12 rounded-lg bg-surface-variant text-on-surface-variant flex items-center justify-center shrink-0 z-10">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">payments</span>
+</div>
+<div class="flex flex-col z-10">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase">Fee Balance</span>
+<span class="font-headline-lg text-[28px] font-bold text-on-surface">GHS 0.00</span>
+</div>
+</div>
+<!-- Quick Actions Mini Card -->
+<div class="mt-2 bg-surface-container rounded-xl p-4 border border-outline-variant/50">
+<h4 class="font-label-md text-label-md text-on-surface-variant mb-3 uppercase tracking-wider">Quick Links</h4>
+<div class="flex flex-col gap-2">
+<button class="flex items-center justify-between p-2 rounded-lg hover:bg-surface-container-high text-on-surface font-body-md text-body-md transition-colors text-left w-full">
+<span class="flex items-center gap-2"><span class="material-symbols-outlined text-[18px] text-outline">history_edu</span> Disciplinary Records</span>
+<span class="material-symbols-outlined text-[16px] text-outline-variant">chevron_right</span>
+</button>
+<button class="flex items-center justify-between p-2 rounded-lg hover:bg-surface-container-high text-on-surface font-body-md text-body-md transition-colors text-left w-full">
+<span class="flex items-center gap-2"><span class="material-symbols-outlined text-[18px] text-outline">medical_information</span> Health Conditions</span>
+<span class="material-symbols-outlined text-[16px] text-outline-variant">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<style>
+        /* Hide scrollbar for tab bar but allow scrolling */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+    </style>
+</body></html>

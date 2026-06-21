@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mark Attendance - Hanara Schools</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "background": "#faf8ff",
+                        "tertiary-fixed": "#d3e4fe",
+                        "on-tertiary-container": "#9dadc6",
+                        "outline-variant": "#c5c5d3",
+                        "on-error-container": "#93000a",
+                        "inverse-primary": "#b6c4ff",
+                        "inverse-on-surface": "#f1f0f7",
+                        "surface-container-low": "#f4f3fa",
+                        "on-background": "#1a1b21",
+                        "on-primary": "#ffffff",
+                        "surface-bright": "#faf8ff",
+                        "tertiary": "#1b2b3f",
+                        "secondary": "#855300",
+                        "on-primary-fixed": "#00164e",
+                        "on-error": "#ffffff",
+                        "surface": "#faf8ff",
+                        "secondary-container": "#fea619",
+                        "secondary-fixed": "#ffddb8",
+                        "primary-fixed-dim": "#b6c4ff",
+                        "on-secondary-fixed": "#2a1700",
+                        "on-tertiary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed-dim": "#b7c8e1",
+                        "error-container": "#ffdad6",
+                        "primary-fixed": "#dce1ff",
+                        "surface-variant": "#e3e1e9",
+                        "secondary-fixed-dim": "#ffb95f",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "on-primary-container": "#90a8ff",
+                        "surface-container-highest": "#e3e1e9",
+                        "on-tertiary-fixed-variant": "#38485d",
+                        "on-tertiary-fixed": "#0b1c30",
+                        "primary": "#00236f",
+                        "on-surface-variant": "#444651",
+                        "on-primary-fixed-variant": "#264191",
+                        "outline": "#757682",
+                        "surface-container": "#eeedf4",
+                        "surface-tint": "#4059aa",
+                        "tertiary-container": "#314156",
+                        "on-secondary-container": "#684000",
+                        "surface-dim": "#dad9e1",
+                        "surface-container-high": "#e9e7ef",
+                        "inverse-surface": "#2f3036",
+                        "primary-container": "#1e3a8a",
+                        "on-surface": "#1a1b21",
+                        "on-secondary-fixed-variant": "#653e00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "8px",
+                        "stack-md": "16px",
+                        "container-margin": "24px",
+                        "section-gap": "32px",
+                        "unit": "4px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "title-lg": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "title-lg": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .student-card {
+            box-shadow: 0px 1px 3px rgba(0,0,0,0.05), 0px 10px 15px -3px rgba(0,0,0,0.02);
+        }
+        /* Custom toggle button styles */
+        .att-btn-present.active { background-color: #22c55e; color: white; border-color: #22c55e; } /* Tailwind green-500 */
+        .att-btn-absent.active { background-color: #ef4444; color: white; border-color: #ef4444; } /* Tailwind red-500 */
+        .att-btn-late.active { background-color: #f59e0b; color: white; border-color: #f59e0b; } /* Tailwind amber-500 */
+    </style>
+</head>
+<body class="bg-background text-on-surface flex min-h-screen">
+<!-- SideNavBar -->
+<nav class="hidden md:flex flex-col h-screen w-64 fixed left-0 top-0 bg-surface-container-lowest border-r border-outline-variant py-stack-md z-40">
+<div class="px-stack-md mb-8">
+<div class="flex items-center gap-3 mb-2">
+<img alt="Hanara Schools Logo" class="w-10 h-10 rounded-lg object-cover" data-alt="A small, modern school logo featuring an abstract geometric book shape in deep indigo and amber colors, set on a clean white background. High resolution, crisp lines, edtech aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9BumgdVFRq4dGN7iKIAtX2l-nJ6RoJNAHftTletwABToBxyc2-_phCrZmK-gWTn8WeTD7hF1YJHFpSlFyXCQeRtOrCks-xegAovKDRd3dCdRY86o3c582TQ-HM55Pg096L8rPLg14uM1XeLzJ6lfq2CW7_sw0hCOhhITpLPr_V9NecNsb9CB57nmA-OqH5F60QdeAdH7Fb7gTVTMmAh7AkBlt7zCXtuiXOKvMGdBQHJfCyRtCH2PufqQrsKYs9Q83FF4czEn69tLR"/>
+<div>
+<h1 class="font-title-lg text-title-lg font-black text-primary">Hanara Admin</h1>
+<p class="font-label-md text-label-md text-on-surface-variant">Academic Excellence</p>
+</div>
+</div>
+</div>
+<ul class="flex-1 px-2 space-y-1 overflow-y-auto">
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container transition-all duration-200 hover:translate-x-1 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                    Dashboard
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container transition-all duration-200 hover:translate-x-1 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">groups</span>
+                    Students
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container transition-all duration-200 hover:translate-x-1 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">person_add</span>
+                    Admissions
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-primary font-bold border-l-4 border-secondary-container bg-surface-container-high transition-all duration-200 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+                    Attendance
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container transition-all duration-200 hover:translate-x-1 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">school</span>
+                    Academics
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container transition-all duration-200 hover:translate-x-1 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">payments</span>
+                    Finance
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container transition-all duration-200 hover:translate-x-1 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">chat_bubble</span>
+                    Communication
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container transition-all duration-200 hover:translate-x-1 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">badge</span>
+                    Staff
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container transition-all duration-200 hover:translate-x-1 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">settings</span>
+                    Settings
+                </a>
+</li>
+</ul>
+<div class="px-4 mt-auto space-y-4">
+<button class="w-full bg-secondary-container text-on-secondary-container font-label-md text-label-md py-2 rounded-lg font-bold hover:bg-secondary transition-colors duration-200">
+                Export Reports
+            </button>
+<ul class="space-y-1">
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container transition-all duration-200 hover:translate-x-1 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">help</span>
+                        Help Center
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container transition-all duration-200 hover:translate-x-1 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">logout</span>
+                        Logout
+                    </a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 md:ml-64 flex flex-col min-h-screen">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center w-full px-container-margin h-16 sticky top-0 z-50 bg-surface border-b border-outline-variant shadow-sm">
+<div class="flex items-center gap-4">
+<span class="font-headline-md text-headline-md font-bold text-primary">Hanara Schools</span>
+</div>
+<div class="flex items-center gap-4">
+<!-- Search bar omitted as per "on_left" logic usually implying it's somewhere else or simplified here, but adding simple actions -->
+<button class="text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors duration-200 p-2 rounded-full cursor-pointer active:scale-95 transition-transform">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors duration-200 p-2 rounded-full cursor-pointer active:scale-95 transition-transform">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+<button class="text-primary font-label-md text-label-md hover:bg-surface-container-low transition-colors duration-200 px-3 py-1.5 rounded-lg border border-primary ml-2 cursor-pointer active:scale-95 transition-transform">
+                    Support
+                </button>
+<button class="bg-primary text-on-primary font-label-md text-label-md hover:bg-primary-container hover:text-on-primary-container transition-colors duration-200 px-4 py-2 rounded-lg ml-2 cursor-pointer active:scale-95 transition-transform shadow-sm">
+                    Add New
+                </button>
+<img alt="User profile administrator" class="w-8 h-8 rounded-full border border-outline-variant ml-2" data-alt="A professional headshot of a school administrator, male, wearing a smart casual blue shirt, smiling warmly. Natural light, soft blurred background in a bright modern office." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBe2N2kE_8utNHKeUeYjFBZWlic4V5RiXV9qkeyaaUlOkBAfKJgCISaSdRw0cyRODiluEKEEhsX9h_qLYCud30RIWYut_pr3kD2GA4UfwEGOvDfMXjPrRi00HPBiYAX3l8eBITQC6maJnuLyeJzO-QyXYANWUhhO9BIVB-GWSbgaIL8u-lxi2MCjsNTHpwnZMfKJm5ba3DL4s_1Cu0nUnWfHYjW1Hmm4cvpNeE2lj3-j-5Yb2RogOsZv77liL9ifFwpZDfwacPw_wp5"/>
+</div>
+</header>
+<!-- Page Header & Controls -->
+<main class="flex-1 p-container-margin pb-32">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-section-gap gap-4">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-2">Mark Attendance</h2>
+<div class="flex items-center gap-4">
+<select class="bg-surface border border-outline-variant rounded-lg px-3 py-2 font-body-md text-body-md text-on-surface focus:border-primary focus:ring-2 focus:ring-primary-fixed-dim outline-none transition-all">
+<option>Primary 4 - Section A</option>
+<option>Primary 4 - Section B</option>
+<option>Primary 5 - Section A</option>
+</select>
+<input class="bg-surface border border-outline-variant rounded-lg px-3 py-2 font-body-md text-body-md text-on-surface focus:border-primary focus:ring-2 focus:ring-primary-fixed-dim outline-none transition-all" type="date" value="2023-10-24"/>
+</div>
+</div>
+<button class="px-4 py-2 border-2 border-primary text-primary font-label-md text-label-md rounded-lg hover:bg-surface-container-low transition-colors duration-200 flex items-center gap-2" onclick="markAllPresent()">
+<span class="material-symbols-outlined">done_all</span>
+                    Mark all Present
+                </button>
+</div>
+<!-- Student Cards Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-gutter" id="studentGrid">
+<!-- Student Card 1 -->
+<div class="student-card bg-surface border border-outline-variant rounded-lg p-stack-md flex flex-col items-center text-center">
+<img alt="Student" class="w-16 h-16 rounded-full mb-3 border-2 border-surface-variant" data-alt="A portrait of a cheerful young student, female, wearing a neat school uniform. Well-lit studio setting with a clean, light background to match a modern edtech interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBuhgUH2hPEwQIhAs6_0ovqoVi_GX6Mp1ZR6MkN-d8210buPZ-5oSDR9FfDVATGdE5oObiJqyd8tTfqrsg9LHa9UNOg2yT7B0Lt1IwgMueAwE1u54PUJqvyg-LCzPAzaeKEjkhShH_cZXjI8r3SXOf7ve4DxJEfEWrBYsBglY3UimoTRUUmiUyjyJKR24ND8vis6ysJllSmvTTTSw_et9-khniPJzAU_ueFfSYxLpctjo1KgkPpKwhdCtw_6KtPC5CRav6WlQqYs_Hv"/>
+<h3 class="font-title-lg text-title-lg text-on-surface mb-4">Amina Bello</h3>
+<div class="flex bg-surface-container rounded-full p-1 border border-outline-variant w-full justify-between">
+<button class="att-btn att-btn-present active flex-1 py-1 px-2 rounded-full font-label-md text-label-md text-on-surface-variant border border-transparent transition-all duration-200" onclick="setAttendance(this, 'present')">P</button>
+<button class="att-btn att-btn-absent flex-1 py-1 px-2 rounded-full font-label-md text-label-md text-on-surface-variant border border-transparent transition-all duration-200" onclick="setAttendance(this, 'absent')">A</button>
+<button class="att-btn att-btn-late flex-1 py-1 px-2 rounded-full font-label-md text-label-md text-on-surface-variant border border-transparent transition-all duration-200" onclick="setAttendance(this, 'late')">L</button>
+</div>
+</div>
+<!-- Student Card 2 -->
+<div class="student-card bg-surface border border-outline-variant rounded-lg p-stack-md flex flex-col items-center text-center">
+<img alt="Student" class="w-16 h-16 rounded-full mb-3 border-2 border-surface-variant" data-alt="A portrait of a focused young student, male, wearing a standard neat school uniform shirt. Bright, optimistic lighting on a simple off-white background. Edtech aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAA7XztGOtZ3iIDGiGM2Wvula49uzHWmsMdIgaZMwKLC1Qi00lYaTfHF9Z2K-4J0wN-J-TNXnqlltnUnSCKkY3-hj2zSTwIlJBOENxZs09IuOPJsba3tpSD3EIGjh6UOx63i5hg8JWrkO5RgsFgWBpZ_I7oLoZ4GSesJVU5d6-N_mZOqNdE27ZSydYtd-GZ7r92Wu4XTZR-eS-3pwKdnfU1ohbwk9JeUsMRhxrZrjmPluc1x0m4UkqIRc0OgrDYeVkJWPJYfDTy84LM"/>
+<h3 class="font-title-lg text-title-lg text-on-surface mb-4">Chidi Okafor</h3>
+<div class="flex bg-surface-container rounded-full p-1 border border-outline-variant w-full justify-between">
+<button class="att-btn att-btn-present active flex-1 py-1 px-2 rounded-full font-label-md text-label-md text-on-surface-variant border border-transparent transition-all duration-200" onclick="setAttendance(this, 'present')">P</button>
+<button class="att-btn att-btn-absent flex-1 py-1 px-2 rounded-full font-label-md text-label-md text-on-surface-variant border border-transparent transition-all duration-200" onclick="setAttendance(this, 'absent')">A</button>
+<button class="att-btn att-btn-late flex-1 py-1 px-2 rounded-full font-label-md text-label-md text-on-surface-variant border border-transparent transition-all duration-200" onclick="setAttendance(this, 'late')">L</button>
+</div>
+</div>
+<!-- Student Card 3 -->
+<div class="student-card bg-surface border border-outline-variant rounded-lg p-stack-md flex flex-col items-center text-center">
+<div class="w-16 h-16 rounded-full mb-3 bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center font-headline-md text-headline-md border-2 border-surface-variant">
+                        FO
+                    </div>
+<h3 class="font-title-lg text-title-lg text-on-surface mb-4">Fatima Oyelade</h3>
+<div class="flex bg-surface-container rounded-full p-1 border border-outline-variant w-full justify-between">
+<button class="att-btn att-btn-present active flex-1 py-1 px-2 rounded-full font-label-md text-label-md text-on-surface-variant border border-transparent transition-all duration-200" onclick="setAttendance(this, 'present')">P</button>
+<button class="att-btn att-btn-absent flex-1 py-1 px-2 rounded-full font-label-md text-label-md text-on-surface-variant border border-transparent transition-all duration-200" onclick="setAttendance(this, 'absent')">A</button>
+<button class="att-btn att-btn-late flex-1 py-1 px-2 rounded-full font-label-md text-label-md text-on-surface-variant border border-transparent transition-all duration-200" onclick="setAttendance(this, 'late')">L</button>
+</div>
+</div>
+<!-- Student Card 4 -->
+<div class="student-card bg-surface border border-outline-variant rounded-lg p-stack-md flex flex-col items-center text-center">
+<img alt="Student" class="w-16 h-16 rounded-full mb-3 border-2 border-surface-variant" data-alt="A portrait of a young student, male, with short neat hair wearing a crisp school uniform. Photographed in a bright, modern educational setting with a shallow depth of field." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrpqD6y-3fCgizJj2GTP77svJJC8C7C-UBJWJB4ScVx4nooOsLjvCUy1a3RGDas6mPzV7-kq0qRRJw0ko0wRZagwdIP6uj0DsQzv9cOsWKuMNhzmo0YM1ZHtEpukAu-tJ2CHAvlULiXUqZubgTrfc9vIcrJVQkdanh17Mxn8ZhjmaTiGwfB5yr2yYK_72teWEObGDdfN7PzxLefmvAoyc-ewQzUmAdFOJO7UecVH4MteqM-jy0l008vzr0P8EY-z4XUYHFS4hwmZDK"/>
+<h3 class="font-title-lg text-title-lg text-on-surface mb-4">Samuel Peters</h3>
+<div class="flex bg-surface-container rounded-full p-1 border border-outline-variant w-full justify-between">
+<button class="att-btn att-btn-present active flex-1 py-1 px-2 rounded-full font-label-md text-label-md text-on-surface-variant border border-transparent transition-all duration-200" onclick="setAttendance(this, 'present')">P</button>
+<button class="att-btn att-btn-absent flex-1 py-1 px-2 rounded-full font-label-md text-label-md text-on-surface-variant border border-transparent transition-all duration-200" onclick="setAttendance(this, 'absent')">A</button>
+<button class="att-btn att-btn-late flex-1 py-1 px-2 rounded-full font-label-md text-label-md text-on-surface-variant border border-transparent transition-all duration-200" onclick="setAttendance(this, 'late')">L</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Fixed Bottom Action Bar -->
+<div class="fixed bottom-0 right-0 left-0 md:left-64 bg-surface border-t border-outline-variant shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] p-stack-md flex justify-end z-40">
+<button class="bg-secondary-container text-on-secondary-container hover:bg-[#d97706] px-8 py-3 rounded-lg font-title-lg text-title-lg font-bold shadow-sm active:scale-95 transition-all duration-200 flex items-center gap-2">
+<span class="material-symbols-outlined">save</span>
+                Save Attendance
+            </button>
+</div>
+</div>
+<script>
+        function setAttendance(btn, status) {
+            // Find parent container
+            const container = btn.parentElement;
+            // Remove active class from all buttons in this container
+            const buttons = container.querySelectorAll('.att-btn');
+            buttons.forEach(b => {
+                b.classList.remove('active');
+            });
+            // Add active class to clicked button
+            btn.classList.add('active');
+        }
+
+        function markAllPresent() {
+            const grids = document.querySelectorAll('.student-card');
+            grids.forEach(card => {
+                const presentBtn = card.querySelector('.att-btn-present');
+                if(presentBtn) {
+                    setAttendance(presentBtn, 'present');
+                }
+            });
+        }
+    </script>
+</body></html>

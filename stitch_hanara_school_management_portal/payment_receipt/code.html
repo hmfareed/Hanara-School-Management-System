@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Payment Receipt - Hanara Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary": "#1b2b3f",
+                      "secondary-fixed-dim": "#ffb95f",
+                      "on-error-container": "#93000a",
+                      "inverse-primary": "#b6c4ff",
+                      "surface-container": "#eeedf4",
+                      "error-container": "#ffdad6",
+                      "on-tertiary-fixed": "#0b1c30",
+                      "on-secondary-fixed-variant": "#653e00",
+                      "error": "#ba1a1a",
+                      "background": "#faf8ff",
+                      "on-tertiary-container": "#9dadc6",
+                      "primary-container": "#1e3a8a",
+                      "on-primary-fixed-variant": "#264191",
+                      "tertiary-container": "#314156",
+                      "surface-container-high": "#e9e7ef",
+                      "outline-variant": "#c5c5d3",
+                      "tertiary-fixed": "#d3e4fe",
+                      "surface-variant": "#e3e1e9",
+                      "inverse-surface": "#2f3036",
+                      "primary-fixed": "#dce1ff",
+                      "secondary": "#855300",
+                      "on-error": "#ffffff",
+                      "inverse-on-surface": "#f1f0f7",
+                      "secondary-fixed": "#ffddb8",
+                      "surface-container-low": "#f4f3fa",
+                      "on-secondary": "#ffffff",
+                      "on-tertiary-fixed-variant": "#38485d",
+                      "on-surface": "#1a1b21",
+                      "surface-container-lowest": "#ffffff",
+                      "outline": "#757682",
+                      "on-primary": "#ffffff",
+                      "secondary-container": "#fea619",
+                      "tertiary-fixed-dim": "#b7c8e1",
+                      "surface-bright": "#faf8ff",
+                      "on-background": "#1a1b21",
+                      "surface-tint": "#4059aa",
+                      "surface-container-highest": "#e3e1e9",
+                      "primary": "#00236f",
+                      "on-surface-variant": "#444651",
+                      "on-secondary-container": "#684000",
+                      "on-primary-fixed": "#00164e",
+                      "surface": "#faf8ff",
+                      "surface-dim": "#dad9e1",
+                      "primary-fixed-dim": "#b6c4ff",
+                      "on-primary-container": "#90a8ff",
+                      "on-secondary-fixed": "#2a1700",
+                      "on-tertiary": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "container-margin": "24px",
+                      "stack-md": "16px",
+                      "stack-sm": "8px",
+                      "gutter": "16px",
+                      "section-gap": "32px",
+                      "unit": "4px"
+              },
+              "fontFamily": {
+                      "title-lg": ["Inter"],
+                      "label-md": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "headline-lg-mobile": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "display-lg": ["Inter"],
+                      "body-md": ["Inter"]
+              },
+              "fontSize": {
+                      "title-lg": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                      "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                      "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                      "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                      "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                      "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                      "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                      "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .receipt-dashed-line {
+            background-image: linear-gradient(to right, theme('colors.outline-variant') 50%, rgba(255,255,255,0) 0%);
+            background-position: bottom;
+            background-size: 8px 1px;
+            background-repeat: repeat-x;
+        }
+    </style>
+</head>
+<body class="bg-surface-container-low text-on-surface font-body-md antialiased flex">
+<!-- SideNavBar (Shared Component) -->
+<nav class="bg-tertiary text-primary-container font-body-md fixed left-0 top-0 h-full w-64 border-r border-outline-variant shadow-sm flex flex-col p-stack-md z-50">
+<!-- Brand Header -->
+<div class="flex items-center gap-stack-sm mb-section-gap px-stack-sm">
+<div class="w-10 h-10 rounded-lg bg-surface flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary" data-icon="school" data-weight="fill" style="font-variation-settings: 'FILL' 1;">school</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-on-tertiary">Hanara Schools</h1>
+<p class="font-label-md text-label-md text-on-tertiary-container">Admin Portal</p>
+</div>
+</div>
+<!-- Main Navigation -->
+<ul class="flex-1 space-y-unit">
+<li>
+<a class="flex items-center gap-stack-sm px-stack-sm py-2 rounded-lg text-on-tertiary-container hover:bg-tertiary-container hover:text-white transition-colors duration-200 cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-stack-sm px-stack-sm py-2 rounded-lg text-on-tertiary-container hover:bg-tertiary-container hover:text-white transition-colors duration-200 cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span>Students</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-stack-sm px-stack-sm py-2 rounded-lg text-on-tertiary-container hover:bg-tertiary-container hover:text-white transition-colors duration-200 cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span>Teachers</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-stack-sm px-stack-sm py-2 rounded-lg text-on-tertiary-container hover:bg-tertiary-container hover:text-white transition-colors duration-200 cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span>Curriculum</span>
+</a>
+</li>
+<!-- Active Tab: Finance -->
+<li>
+<a class="flex items-center gap-stack-sm px-stack-sm py-2 bg-secondary-container text-on-secondary-container rounded-lg font-semibold cursor-pointer active:scale-95 shadow-sm" href="#">
+<span class="material-symbols-outlined" data-icon="payments" data-weight="fill" style="font-variation-settings: 'FILL' 1;">payments</span>
+<span>Finance</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-stack-sm px-stack-sm py-2 rounded-lg text-on-tertiary-container hover:bg-tertiary-container hover:text-white transition-colors duration-200 cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</li>
+</ul>
+<!-- CTA -->
+<div class="mt-auto mb-stack-md">
+<button class="w-full py-2 bg-primary text-on-primary rounded-lg font-label-md text-label-md hover:bg-primary-container hover:text-on-primary-container transition-colors duration-200 flex items-center justify-center gap-stack-sm">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                Add New Record
+            </button>
+</div>
+<!-- Footer Navigation -->
+<ul class="space-y-unit border-t border-tertiary-container pt-stack-sm">
+<li>
+<a class="flex items-center gap-stack-sm px-stack-sm py-2 rounded-lg text-on-tertiary-container hover:bg-tertiary-container hover:text-white transition-colors duration-200 cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span>Help Center</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-stack-sm px-stack-sm py-2 rounded-lg text-on-tertiary-container hover:bg-tertiary-container hover:text-white transition-colors duration-200 cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span>Logout</span>
+</a>
+</li>
+</ul>
+</nav>
+<!-- Main Content Wrapper -->
+<main class="ml-64 flex-1 flex flex-col min-h-screen">
+<!-- TopAppBar (Shared Component) -->
+<header class="bg-surface text-primary font-title-lg sticky top-0 w-full border-b border-outline-variant shadow-sm flex justify-between items-center px-container-margin py-stack-sm h-16 z-40 focus-within:ring-2 focus-within:ring-primary-container">
+<!-- Brand / Context -->
+<div class="flex items-center gap-stack-md">
+<h2 class="font-headline-md text-headline-md text-primary font-bold tracking-tight">Hanara Admin</h2>
+</div>
+<!-- Navigation Links (Contextual) -->
+<nav class="hidden md:flex gap-section-gap h-full items-center">
+<a class="text-on-surface-variant hover:text-primary transition-all font-body-md text-body-md" href="#">Overview</a>
+<a class="text-on-surface-variant hover:text-primary transition-all font-body-md text-body-md" href="#">Reports</a>
+<a class="text-on-surface-variant hover:text-primary transition-all font-body-md text-body-md" href="#">Logs</a>
+</nav>
+<!-- Trailing Actions -->
+<div class="flex items-center gap-stack-md">
+<button class="hidden lg:flex px-4 py-2 text-primary border border-primary rounded-lg font-label-md text-label-md hover:bg-primary hover:text-on-primary transition-colors">
+                    Quick Actions
+                </button>
+<div class="flex gap-stack-sm text-on-surface-variant">
+<button class="p-2 rounded-full hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined" data-icon="apps">apps</span>
+</button>
+</div>
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center shrink-0 border border-outline-variant overflow-hidden">
+<img alt="Administrator Profile" class="w-full h-full object-cover" data-alt="A professional, minimalist avatar for a school administrator, featuring clean geometric lines and a trustworthy blue color palette, suitable for a modern edtech platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuArt36pH4X9HMfeaVFJnsv8XgxvjVEUIob1iYANvnwDmxX9jXvf116P8LEQmVGudopmSkziBUCMeI_0kpYqEVcgtiKoVeAOareBKjXFtljvP5dr159EgtTQkmLvedNwvI8P-Efg7qabCJ_07gZByc8-x7QHXW8XUR_cyABcogY5xlro9DuTCbwVGAzzg51Hcy1fGcw8OOg5G6VYbh1AsP5whETM5iO69xG6IWP3-IOnGg8XwpapvUkaBq2TYbcMBwPjJ39_H7ZUpjYg"/>
+</div>
+</div>
+</header>
+<!-- Page Canvas -->
+<div class="flex-1 p-section-gap flex flex-col items-center justify-center bg-background">
+<!-- Success Indicator Header -->
+<div class="text-center mb-stack-md animate-fade-in-up">
+<div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-surface shadow-sm border border-outline-variant mb-stack-sm">
+<span class="material-symbols-outlined text-primary text-4xl" data-icon="check_circle" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Payment Successful</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-unit">Receipt has been generated securely.</p>
+</div>
+<!-- Receipt Document -->
+<div class="w-full max-w-lg bg-surface rounded-xl shadow-[0px_1px_3px_rgba(0,0,0,0.05),_0px_10px_15px_-3px_rgba(0,0,0,0.02)] border border-outline-variant overflow-hidden">
+<!-- Receipt Header -->
+<div class="p-stack-md text-center bg-surface-bright border-b border-outline-variant flex flex-col items-center">
+<span class="material-symbols-outlined text-tertiary text-3xl mb-unit" data-icon="account_balance">account_balance</span>
+<h3 class="font-headline-md text-headline-md text-tertiary">Hanara Schools</h3>
+<p class="font-label-md text-label-md text-on-surface-variant mt-1">Official Payment Receipt</p>
+</div>
+<!-- Receipt Meta -->
+<div class="p-stack-md receipt-dashed-line pb-6 flex justify-between items-center">
+<div>
+<p class="font-label-md text-label-md text-outline">RECEIPT NO.</p>
+<p class="font-body-md text-body-md text-on-surface font-medium mt-1">#RCPT-2023-8942</p>
+</div>
+<div class="text-right">
+<p class="font-label-md text-label-md text-outline">DATE PAID</p>
+<p class="font-body-md text-body-md text-on-surface font-medium mt-1">Oct 24, 2023</p>
+</div>
+</div>
+<!-- Receipt Details -->
+<div class="p-stack-md space-y-stack-md">
+<div class="grid grid-cols-2 gap-stack-md">
+<div>
+<p class="font-label-md text-label-md text-outline">STUDENT NAME</p>
+<p class="font-body-lg text-body-lg text-on-surface font-medium mt-1">Elias Vance</p>
+<p class="font-body-md text-body-md text-on-surface-variant">Grade 10 - Section B</p>
+</div>
+<div class="text-right">
+<p class="font-label-md text-label-md text-outline">PAYMENT METHOD</p>
+<div class="flex items-center justify-end gap-2 mt-1">
+<span class="material-symbols-outlined text-on-surface-variant text-lg" data-icon="credit_card">credit_card</span>
+<p class="font-body-md text-body-md text-on-surface font-medium">Visa •••• 4242</p>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-low rounded-lg p-stack-md border border-outline-variant">
+<p class="font-label-md text-label-md text-outline mb-2">FEE DESCRIPTION</p>
+<div class="flex justify-between items-center mb-1">
+<p class="font-body-md text-body-md text-on-surface">Fall Semester Tuition - Installment 2</p>
+</div>
+</div>
+</div>
+<!-- Amount Section -->
+<div class="bg-tertiary text-on-tertiary p-stack-md flex justify-between items-end">
+<div>
+<p class="font-label-md text-label-md text-on-tertiary-container mb-1">AMOUNT PAID</p>
+<p class="font-display-lg text-display-lg font-bold leading-none">$1,250.00</p>
+</div>
+<div class="text-right pb-1">
+<p class="font-label-md text-label-md text-on-tertiary-container">REMAINING BALANCE</p>
+<p class="font-title-lg text-title-lg text-secondary-fixed-dim">$2,500.00</p>
+</div>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex flex-col sm:flex-row gap-stack-md mt-section-gap w-full max-w-lg">
+<button class="flex-1 py-3 px-6 rounded-lg border border-primary text-primary font-title-lg text-title-lg text-sm flex items-center justify-center gap-stack-sm hover:bg-primary hover:text-on-primary transition-colors focus:ring-2 focus:ring-primary-container outline-none">
+<span class="material-symbols-outlined" data-icon="sms">sms</span>
+                    Send via SMS
+                </button>
+<button class="flex-1 py-3 px-6 rounded-lg bg-secondary-container text-on-secondary-container font-title-lg text-title-lg text-sm flex items-center justify-center gap-stack-sm hover:brightness-95 transition-all shadow-sm focus:ring-2 focus:ring-secondary outline-none">
+<span class="material-symbols-outlined" data-icon="download">download</span>
+                    Download PDF
+                </button>
+</div>
+</div>
+</main>
+<style>
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 0.5s ease-out forwards;
+        }
+    </style>
+</body></html>

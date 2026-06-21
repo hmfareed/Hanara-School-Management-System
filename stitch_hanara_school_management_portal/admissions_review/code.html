@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Admissions Review - Hanara Schools</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary": "#ffffff",
+                        "on-primary-container": "#90a8ff",
+                        "surface-container-highest": "#e3e1e9",
+                        "on-tertiary-fixed-variant": "#38485d",
+                        "on-tertiary-fixed": "#0b1c30",
+                        "primary": "#00236f",
+                        "on-surface-variant": "#444651",
+                        "on-primary-fixed-variant": "#264191",
+                        "outline": "#757682",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed-dim": "#b7c8e1",
+                        "error-container": "#ffdad6",
+                        "primary-fixed": "#dce1ff",
+                        "surface-variant": "#e3e1e9",
+                        "secondary-fixed-dim": "#ffb95f",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-container": "#684000",
+                        "surface-dim": "#dad9e1",
+                        "surface-container-high": "#e9e7ef",
+                        "inverse-surface": "#2f3036",
+                        "primary-container": "#1e3a8a",
+                        "on-surface": "#1a1b21",
+                        "on-secondary-fixed-variant": "#653e00",
+                        "surface-container": "#eeedf4",
+                        "surface-tint": "#4059aa",
+                        "tertiary-container": "#314156",
+                        "on-background": "#1a1b21",
+                        "on-primary": "#ffffff",
+                        "surface-bright": "#faf8ff",
+                        "tertiary": "#1b2b3f",
+                        "secondary": "#855300",
+                        "background": "#faf8ff",
+                        "tertiary-fixed": "#d3e4fe",
+                        "on-tertiary-container": "#9dadc6",
+                        "outline-variant": "#c5c5d3",
+                        "on-error-container": "#93000a",
+                        "inverse-primary": "#b6c4ff",
+                        "inverse-on-surface": "#f1f0f7",
+                        "surface-container-low": "#f4f3fa",
+                        "on-error": "#ffffff",
+                        "surface": "#faf8ff",
+                        "secondary-container": "#fea619",
+                        "secondary-fixed": "#ffddb8",
+                        "primary-fixed-dim": "#b6c4ff",
+                        "on-secondary-fixed": "#2a1700",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed": "#00164e"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "8px",
+                        "stack-md": "16px",
+                        "container-margin": "24px",
+                        "section-gap": "32px",
+                        "unit": "4px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "title-lg": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "title-lg": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }]
+                    },
+                    "boxShadow": {
+                        "level-1": "0px 1px 3px rgba(0,0,0,0.05), 0px 10px 15px -3px rgba(0,0,0,0.02)",
+                        "level-2": "0px 20px 25px -5px rgba(0,0,0,0.1), 0px 10px 10px -5px rgba(0,0,0,0.04)"
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen flex">
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 h-screen w-64 border-r border-outline-variant bg-surface dark:bg-surface-dim flex flex-col py-6 px-4 z-50">
+<!-- Brand/Header -->
+<div class="mb-8 px-2 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-bold text-lg" data-alt="A stylized, modern geometric logo for a school, featuring abstract shapes in crisp whites and deep indigo blues, conveying academic excellence and structural reliability in a clean, edtech aesthetic.">
+                H
+            </div>
+<div>
+<h1 class="font-title-lg text-title-lg font-bold text-primary dark:text-primary-fixed">Hanara Schools</h1>
+<p class="font-label-md text-label-md text-on-surface-variant">Admin Portal</p>
+</div>
+</div>
+<!-- CTA -->
+<div class="mb-6 px-2">
+<button class="w-full flex items-center justify-center gap-2 bg-[#F59E0B] text-on-primary font-label-md text-label-md py-3 px-4 rounded-lg hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined" style="font-size: 20px;">add</span>
+                New Admission
+            </button>
+</div>
+<!-- Main Nav -->
+<div class="flex-1 overflow-y-auto space-y-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-on-surface-variant opacity-80 hover:bg-surface-container-high dark:hover:bg-surface-container-highest hover:text-primary dark:hover:text-primary-fixed-dim transition-colors group" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-body-md text-body-md font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-on-surface-variant opacity-80 hover:bg-surface-container-high dark:hover:bg-surface-container-highest hover:text-primary dark:hover:text-primary-fixed-dim transition-colors group" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-body-md text-body-md font-medium">Students</span>
+</a>
+<!-- Active State -->
+<a class="flex items-center gap-3 px-3 py-2.5 bg-surface-container text-primary dark:text-primary-fixed-dim font-bold border-r-4 border-primary dark:border-primary-fixed-dim transform scale-[0.98] transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="how_to_reg" data-weight="fill" style="font-variation-settings: 'FILL' 1;">how_to_reg</span>
+<span class="font-body-md text-body-md font-medium">Admissions</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-on-surface-variant opacity-80 hover:bg-surface-container-high dark:hover:bg-surface-container-highest hover:text-primary dark:hover:text-primary-fixed-dim transition-colors group" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span class="font-body-md text-body-md font-medium">Attendance</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-on-surface-variant opacity-80 hover:bg-surface-container-high dark:hover:bg-surface-container-highest hover:text-primary dark:hover:text-primary-fixed-dim transition-colors group" href="#">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span class="font-body-md text-body-md font-medium">Academics</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-on-surface-variant opacity-80 hover:bg-surface-container-high dark:hover:bg-surface-container-highest hover:text-primary dark:hover:text-primary-fixed-dim transition-colors group" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="font-body-md text-body-md font-medium">Finance</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-on-surface-variant opacity-80 hover:bg-surface-container-high dark:hover:bg-surface-container-highest hover:text-primary dark:hover:text-primary-fixed-dim transition-colors group" href="#">
+<span class="material-symbols-outlined" data-icon="chat">chat</span>
+<span class="font-body-md text-body-md font-medium">Communication</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-on-surface-variant opacity-80 hover:bg-surface-container-high dark:hover:bg-surface-container-highest hover:text-primary dark:hover:text-primary-fixed-dim transition-colors group" href="#">
+<span class="material-symbols-outlined" data-icon="badge">badge</span>
+<span class="font-body-md text-body-md font-medium">Staff</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-on-surface-variant opacity-80 hover:bg-surface-container-high dark:hover:bg-surface-container-highest hover:text-primary dark:hover:text-primary-fixed-dim transition-colors group" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-body-md text-body-md font-medium">Settings</span>
+</a>
+</div>
+<!-- Footer Nav -->
+<div class="pt-4 mt-4 border-t border-outline-variant space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant opacity-80 hover:bg-surface-container-high hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="event_note">event_note</span>
+<span class="font-label-md text-label-md">Academic Term</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant opacity-80 hover:bg-surface-container-high hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+<span class="font-label-md text-label-md">Profile</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="ml-64 flex-1 h-screen flex flex-col overflow-hidden bg-background">
+<!-- Top App Bar (Simplified for context) -->
+<header class="h-16 border-b border-outline-variant bg-surface flex items-center justify-between px-8 flex-shrink-0">
+<div>
+<h2 class="font-headline-md text-headline-md font-semibold text-primary">Admissions Review</h2>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary transition-colors">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full"></span>
+</div>
+<div class="w-8 h-8 rounded-full bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed font-bold text-sm overflow-hidden" data-alt="A small, professional profile avatar photo of a school administrator, neutral lighting, soft focus background, wearing a neat button-down shirt.">
+<img alt="User Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2xVowoWlPOTXKZOUwNrKRmj1Rj0xbT25nV5_zUxSfkn-KL2atPPRUUxOclob2tJz46yneRbse65FL7xMfdjs_P7uH-UAUFCu2_2wXL7YukG5Np57Fc6xXDE581rYhYIj-FqYxnoa4tKZsuGfxi_LevLn90zCCFYh1p54oA-Khy-wNnmf1G193MEHoeKPHij9ec2HvZmY9MrkO1ExIa1TttWMFFsuPn2vQVQ3Je5-4jY7x4McT5iN08pK3U4TiWdS61uJ7g464267Y"/>
+</div>
+</div>
+</header>
+<!-- Split Pane Layout -->
+<div class="flex-1 flex overflow-hidden p-container-margin gap-container-margin">
+<!-- Left Column: List -->
+<div class="w-1/3 flex flex-col bg-surface rounded-[16px] shadow-level-1 border border-outline-variant overflow-hidden">
+<div class="p-stack-md border-b border-outline-variant bg-surface-bright z-10 sticky top-0 flex justify-between items-center">
+<h3 class="font-title-lg text-title-lg font-bold text-on-surface">Pending Applications</h3>
+<span class="bg-primary-container text-on-primary-container font-label-md text-label-md px-2 py-1 rounded-full">12 New</span>
+</div>
+<div class="flex-1 overflow-y-auto p-2 space-y-2">
+<!-- List Item 1 (Selected) -->
+<div class="p-3 rounded-lg bg-surface-container-low border border-primary-fixed shadow-sm cursor-pointer hover:bg-surface-container transition-colors relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>
+<div class="flex items-start gap-3 pl-1">
+<div class="w-12 h-12 rounded-full bg-surface-variant flex-shrink-0 overflow-hidden" data-alt="A clear, brightly lit headshot of a young child, approximately 4 years old, smiling gently, neutral background, suitable for a school admission application photo.">
+<img alt="Child Photo" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWATid_H5DI2AxxX8V-hr8KleP0okZvSSlCYH82dINXp3OloatLoJXCFABRyZ08VVbteDIkO93jdrR1yc_jz38_SVkF06gwDFQWd5Fr_KvHY2KTlRJVjPNAOrUCYsIZCH30rllBjblWW7nUl4tGl6IhPwwvs2qAIX3ID9eu2vDBXpAD2rjYhKASeKH8lML4Cnb3r_9NDo1cPv_pI3bobx6K62yq7wPAbQqgGw000QttgrHG1M2BptkKsobGoD2dMFMKAj7xt8bJXXK"/>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start mb-1">
+<h4 class="font-body-lg text-body-lg font-semibold text-on-surface truncate">Aiden Thorne</h4>
+<span class="bg-primary-fixed text-on-primary-fixed-variant font-label-md text-[10px] px-2 py-0.5 rounded-full whitespace-nowrap">Pending</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant truncate">Nursery 1</p>
+<p class="font-label-md text-label-md text-outline mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">schedule</span> Oct 24, 2023
+                                </p>
+</div>
+</div>
+</div>
+<!-- List Item 2 -->
+<div class="p-3 rounded-lg border border-transparent hover:bg-surface-container hover:border-outline-variant cursor-pointer transition-colors">
+<div class="flex items-start gap-3">
+<div class="w-12 h-12 rounded-full bg-surface-variant flex-shrink-0 overflow-hidden" data-alt="A clear headshot of a young girl, about 7 years old, looking attentive, wearing a plain pastel shirt against a white background, typical student ID photo style.">
+<img alt="Child Photo" class="w-full h-full object-cover grayscale-[20%]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBm15CG1UvEpEsQtCKr742DRPQrrp2YSXG_6n0RTxWq-h6TXmCviz2KJmMp0fEpi6Rv2jGcTmGEjp96rMlWEW0t15MTMjvSDpbTtRNjLnYVmORfGA_A1uzvRww_lTlOoB7XmUEyqVhte9u24PK1I__WCH8u57BhsUCQfzr5sMenkwuRlBT_B38mvyXMkvFVUL6gR2EDsSzAHkGcTVssiki8XxZYtrKWFZ9QZrRqnE87VvqhJhOYKFx7XPouCY6sl3LFjXUMG3Y2XrAQ"/>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start mb-1">
+<h4 class="font-body-lg text-body-lg font-medium text-on-surface truncate">Maya Lin</h4>
+<span class="bg-surface-variant text-on-surface-variant font-label-md text-[10px] px-2 py-0.5 rounded-full whitespace-nowrap">Reviewed</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant truncate">Primary 3</p>
+<p class="font-label-md text-label-md text-outline mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">schedule</span> Oct 22, 2023
+                                </p>
+</div>
+</div>
+</div>
+<!-- List Item 3 -->
+<div class="p-3 rounded-lg border border-transparent hover:bg-surface-container hover:border-outline-variant cursor-pointer transition-colors">
+<div class="flex items-start gap-3">
+<div class="w-12 h-12 rounded-full bg-surface-variant flex-shrink-0 overflow-hidden" data-alt="A clear headshot of a young boy, about 5 years old, looking straight at the camera with a neutral expression, light grey background, passport photo style.">
+<div class="w-full h-full flex items-center justify-center bg-tertiary-fixed text-on-tertiary-fixed font-bold">EJ</div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start mb-1">
+<h4 class="font-body-lg text-body-lg font-medium text-on-surface truncate">Elias Jensen</h4>
+<span class="bg-primary-fixed text-on-primary-fixed-variant font-label-md text-[10px] px-2 py-0.5 rounded-full whitespace-nowrap">Pending</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant truncate">Nursery 2</p>
+<p class="font-label-md text-label-md text-outline mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">schedule</span> Oct 21, 2023
+                                </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Detail Panel -->
+<div class="w-2/3 flex flex-col bg-surface rounded-[16px] shadow-level-1 border border-outline-variant overflow-hidden relative">
+<!-- Detail Header -->
+<div class="p-stack-md px-8 border-b border-outline-variant bg-surface-bright flex items-center gap-6 flex-shrink-0">
+<div class="w-24 h-24 rounded-full border-4 border-surface shadow-sm overflow-hidden relative" data-alt="A clear, brightly lit headshot of a young child, approximately 4 years old, smiling gently, neutral background, suitable for a school admission application photo.">
+<img alt="Child Photo Detailed" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPwwpgm5ncW8a1eLc3PeoptoQAlus0gL7xaH40NnllhdXmYe15E27nWZWgHrkd7_nrsKTcjIxk0lT9Kl9YGLE-1iwKiY1sex43_8ptW5YnmvGvEhblcoYanI0vdI6CxDA3gYCWMKjv13RHLRiVgLkH364VnKHSH0R1PzWOaMQSexNrQzDZ20gWYpYEbwPPXzm3ge7jcDkiC5gQoHXRRF1i-AD2fDNjETNveqWQKlagjPUpQB4vqiLiJves2eDf5picb5qbbSsxQJFM"/>
+</div>
+<div class="flex-1">
+<div class="flex items-center gap-3 mb-1">
+<h2 class="font-display-lg text-headline-lg font-bold text-on-surface">Aiden Thorne</h2>
+<span class="bg-primary-fixed text-on-primary-fixed-variant font-label-md text-label-md px-3 py-1 rounded-full border border-primary-fixed-dim">Pending Review</span>
+</div>
+<p class="font-body-lg text-body-lg text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">school</span> Applying for: <strong class="text-primary">Nursery 1</strong>
+</p>
+</div>
+<div class="text-right">
+<p class="font-label-md text-label-md text-outline mb-1">Application ID</p>
+<p class="font-body-md text-body-md font-mono bg-surface-container px-2 py-1 rounded text-on-surface">APP-23-0892</p>
+</div>
+</div>
+<!-- Scrollable Content Details -->
+<div class="flex-1 overflow-y-auto p-8 space-y-section-gap bg-background/50">
+<!-- Bento Grid Layout for Sections -->
+<div class="grid grid-cols-2 gap-stack-md">
+<!-- Section 1: Bio-data -->
+<div class="bg-surface p-stack-md rounded-[12px] border border-outline-variant shadow-sm flex flex-col">
+<h3 class="font-title-lg text-title-lg font-semibold text-primary mb-4 flex items-center gap-2 border-b border-outline-variant pb-2">
+<span class="material-symbols-outlined">person</span>
+                                Child's Bio-data
+                            </h3>
+<div class="space-y-3 flex-1">
+<div class="flex justify-between items-center border-b border-surface-container-high pb-2">
+<span class="font-label-md text-label-md text-on-surface-variant">Date of Birth</span>
+<span class="font-body-md text-body-md font-medium text-on-surface">March 14, 2019 <span class="text-outline text-sm">(4 yrs)</span></span>
+</div>
+<div class="flex justify-between items-center border-b border-surface-container-high pb-2">
+<span class="font-label-md text-label-md text-on-surface-variant">Gender</span>
+<span class="font-body-md text-body-md font-medium text-on-surface">Male</span>
+</div>
+<div class="flex justify-between items-start pt-1">
+<span class="font-label-md text-label-md text-on-surface-variant w-1/3">Address</span>
+<span class="font-body-md text-body-md font-medium text-on-surface text-right">142 Maplewood Drive,<br/>Springfield, IL 62704</span>
+</div>
+</div>
+</div>
+<!-- Section 2: Guardian Info -->
+<div class="bg-surface p-stack-md rounded-[12px] border border-outline-variant shadow-sm flex flex-col">
+<h3 class="font-title-lg text-title-lg font-semibold text-primary mb-4 flex items-center gap-2 border-b border-outline-variant pb-2">
+<span class="material-symbols-outlined">family_home</span>
+                                Guardian Information
+                            </h3>
+<div class="space-y-3 flex-1">
+<div class="flex justify-between items-center border-b border-surface-container-high pb-2">
+<span class="font-label-md text-label-md text-on-surface-variant">Name</span>
+<span class="font-body-md text-body-md font-medium text-on-surface">Sarah Thorne</span>
+</div>
+<div class="flex justify-between items-center border-b border-surface-container-high pb-2">
+<span class="font-label-md text-label-md text-on-surface-variant">Relationship</span>
+<span class="font-body-md text-body-md font-medium text-on-surface">Mother</span>
+</div>
+<div class="flex justify-between items-center border-b border-surface-container-high pb-2">
+<span class="font-label-md text-label-md text-on-surface-variant">Phone</span>
+<span class="font-body-md text-body-md font-medium text-on-surface">(555) 019-2834</span>
+</div>
+<div class="flex justify-between items-center pt-1">
+<span class="font-label-md text-label-md text-on-surface-variant">Email</span>
+<span class="font-body-md text-body-md font-medium text-on-surface text-primary">s.thorne@example.com</span>
+</div>
+</div>
+</div>
+<!-- Section 3: Documents (Spans full width in bento) -->
+<div class="col-span-2 bg-surface p-stack-md rounded-[12px] border border-outline-variant shadow-sm">
+<h3 class="font-title-lg text-title-lg font-semibold text-primary mb-4 flex items-center gap-2 border-b border-outline-variant pb-2">
+<span class="material-symbols-outlined">folder_open</span>
+                                Uploaded Documents
+                            </h3>
+<div class="grid grid-cols-3 gap-4">
+<!-- Doc 1 -->
+<div class="border border-outline-variant rounded-lg p-3 flex items-center gap-3 hover:bg-surface-container transition-colors cursor-pointer group">
+<div class="w-10 h-10 bg-error-container text-on-error-container rounded flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined">description</span>
+</div>
+<div class="min-w-0 flex-1">
+<p class="font-body-md text-body-md font-medium text-on-surface truncate group-hover:text-primary transition-colors">Birth Certificate.pdf</p>
+<p class="font-label-md text-label-md text-outline">1.2 MB</p>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary">download</span>
+</div>
+<!-- Doc 2 -->
+<div class="border border-outline-variant rounded-lg p-3 flex items-center gap-3 hover:bg-surface-container transition-colors cursor-pointer group">
+<div class="w-10 h-10 bg-tertiary-fixed text-on-tertiary-fixed rounded flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined">vaccines</span>
+</div>
+<div class="min-w-0 flex-1">
+<p class="font-body-md text-body-md font-medium text-on-surface truncate group-hover:text-primary transition-colors">Immunization_Rec.jpg</p>
+<p class="font-label-md text-label-md text-outline">845 KB</p>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary">visibility</span>
+</div>
+<!-- Doc 3 -->
+<div class="border border-outline-variant rounded-lg p-3 flex items-center gap-3 hover:bg-surface-container transition-colors cursor-pointer group border-dashed bg-surface-bright">
+<div class="w-10 h-10 bg-surface-variant text-on-surface-variant rounded flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined">receipt_long</span>
+</div>
+<div class="min-w-0 flex-1">
+<p class="font-body-md text-body-md font-medium text-on-surface truncate group-hover:text-primary transition-colors">Previous_School_Report.pdf</p>
+<p class="font-label-md text-label-md text-outline">Not Required</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Decorative Spacer to ensure scrolling past footer if needed -->
+<div class="h-8"></div>
+</div>
+<!-- Footer Actions (Fixed at bottom) -->
+<div class="p-stack-md border-t border-outline-variant bg-surface flex justify-end items-center gap-4 flex-shrink-0">
+<button class="px-6 py-2.5 rounded-lg border border-outline text-on-surface-variant font-body-md text-body-md font-medium hover:bg-surface-container hover:text-on-surface transition-colors">
+                        Decline
+                    </button>
+<button class="px-6 py-2.5 rounded-lg border border-primary text-primary font-body-md text-body-md font-medium hover:bg-primary-fixed hover:text-on-primary-fixed-variant transition-colors">
+                        Waitlist
+                    </button>
+<button class="px-6 py-2.5 rounded-lg bg-[#F59E0B] text-on-primary font-body-md text-body-md font-medium shadow-sm hover:opacity-90 hover:shadow-md transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+                        Approve &amp; Enroll
+                    </button>
+</div>
+</div>
+</div>
+</main>
+</body></html>

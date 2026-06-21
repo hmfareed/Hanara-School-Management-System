@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Hanara Schools - Timetable</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#faf8ff",
+                        "secondary-fixed-dim": "#ffb95f",
+                        "inverse-on-surface": "#f1f0f7",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#b6c4ff",
+                        "surface-dim": "#dad9e1",
+                        "surface-container-low": "#f4f3fa",
+                        "secondary-container": "#fea619",
+                        "tertiary-container": "#314156",
+                        "on-tertiary-fixed": "#0b1c30",
+                        "primary-fixed": "#dce1ff",
+                        "surface": "#faf8ff",
+                        "on-tertiary-fixed-variant": "#38485d",
+                        "secondary": "#855300",
+                        "on-secondary-fixed": "#2a1700",
+                        "tertiary-fixed-dim": "#b7c8e1",
+                        "on-primary-container": "#90a8ff",
+                        "on-tertiary-container": "#9dadc6",
+                        "on-surface": "#1a1b21",
+                        "surface-container-highest": "#e3e1e9",
+                        "surface-variant": "#e3e1e9",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed": "#ffddb8",
+                        "on-surface-variant": "#444651",
+                        "tertiary": "#1b2b3f",
+                        "surface-container": "#eeedf4",
+                        "tertiary-fixed": "#d3e4fe",
+                        "on-secondary-container": "#684000",
+                        "on-secondary-fixed-variant": "#653e00",
+                        "surface-container-high": "#e9e7ef",
+                        "inverse-surface": "#2f3036",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed-variant": "#264191",
+                        "on-background": "#1a1b21",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed": "#00164e",
+                        "on-error-container": "#93000a",
+                        "primary": "#00236f",
+                        "surface-tint": "#4059aa",
+                        "background": "#faf8ff",
+                        "primary-container": "#1e3a8a",
+                        "error-container": "#ffdad6",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#c5c5d3",
+                        "inverse-primary": "#b6c4ff",
+                        "outline": "#757682",
+                        "on-tertiary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "16px",
+                        "container-margin": "24px",
+                        "stack-md": "16px",
+                        "stack-sm": "8px",
+                        "unit": "4px",
+                        "section-gap": "32px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "title-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "title-lg": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .timetable-grid {
+            display: grid;
+            grid-template-columns: 80px repeat(5, 1fr);
+            grid-template-rows: auto repeat(8, minmax(100px, auto));
+            gap: 1px;
+            background-color: #E2E8F0; /* outline-variant approximation for grid lines */
+        }
+        .timetable-cell {
+            background-color: #ffffff;
+            padding: 8px;
+        }
+        .timetable-header {
+            background-color: #faf8ff; /* surface */
+            font-weight: 600;
+            text-align: center;
+            padding: 12px 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .time-label {
+            background-color: #faf8ff;
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-end;
+            padding: 8px 12px 8px 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            color: #757682;
+            text-align: right;
+        }
+        
+        /* Subject colors (soft pastels based on brand/intent) */
+        .subj-math { background-color: #dce1ff; color: #00164e; border-left: 4px solid #00236f; } /* primary-fixed / on-primary-fixed */
+        .subj-science { background-color: #d3e4fe; color: #0b1c30; border-left: 4px solid #1b2b3f; } /* tertiary-fixed / on-tertiary-fixed */
+        .subj-english { background-color: #ffddb8; color: #2a1700; border-left: 4px solid #855300; } /* secondary-fixed / on-secondary-fixed */
+        .subj-art { background-color: #f4f3fa; color: #444651; border-left: 4px solid #c5c5d3; }
+        .subj-pe { background-color: #ffdad6; color: #93000a; border-left: 4px solid #ba1a1a; }
+        
+        .subject-card {
+            border-radius: 0.25rem;
+            padding: 8px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .subject-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            z-index: 10;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex">
+<!-- SideNavBar -->
+<nav class="docked left-0 h-full w-64 border-r border-outline-variant dark:border-outline shadow-sm flex flex-col h-screen fixed left-0 top-0 py-6 px-4 bg-surface-container-lowest dark:bg-inverse-surface hidden md:flex z-50">
+<div class="flex items-center gap-3 mb-10 px-2">
+<div class="w-10 h-10 rounded-lg bg-primary-fixed flex items-center justify-center text-primary font-bold">
+<span class="material-symbols-outlined">school</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-extrabold text-primary dark:text-primary-fixed">Hanara Admin</h1>
+<p class="font-label-md text-label-md text-on-surface-variant">Academic Excellence</p>
+</div>
+</div>
+<button class="mb-8 w-full bg-secondary-container text-on-secondary-container hover:bg-secondary hover:text-on-secondary transition-colors duration-200 py-3 rounded-lg font-label-md text-label-md flex items-center justify-center gap-2 shadow-sm">
+<span class="material-symbols-outlined text-[18px]">add</span>
+            Add New Entry
+        </button>
+<div class="flex-1 overflow-y-auto space-y-1">
+<a class="flex items-center gap-3 px-3 py-2.5 text-on-surface-variant dark:text-outline-variant hover:bg-surface-container dark:hover:bg-surface-variant rounded-lg duration-200 ease-in-out font-label-md text-label-md group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-on-surface-variant dark:text-outline-variant hover:bg-surface-container dark:hover:bg-surface-variant rounded-lg duration-200 ease-in-out font-label-md text-label-md group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary">group</span>
+                Students
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-on-surface-variant dark:text-outline-variant hover:bg-surface-container dark:hover:bg-surface-variant rounded-lg duration-200 ease-in-out font-label-md text-label-md group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary">how_to_reg</span>
+                Admissions
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-on-surface-variant dark:text-outline-variant hover:bg-surface-container dark:hover:bg-surface-variant rounded-lg duration-200 ease-in-out font-label-md text-label-md group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary">calendar_today</span>
+                Attendance
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary font-bold rounded-lg duration-200 ease-in-out font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">school</span>
+                Academics
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-on-surface-variant dark:text-outline-variant hover:bg-surface-container dark:hover:bg-surface-variant rounded-lg duration-200 ease-in-out font-label-md text-label-md group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary">payments</span>
+                Finance
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-on-surface-variant dark:text-outline-variant hover:bg-surface-container dark:hover:bg-surface-variant rounded-lg duration-200 ease-in-out font-label-md text-label-md group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary">chat</span>
+                Communication
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-on-surface-variant dark:text-outline-variant hover:bg-surface-container dark:hover:bg-surface-variant rounded-lg duration-200 ease-in-out font-label-md text-label-md group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary">person_4</span>
+                Staff
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-on-surface-variant dark:text-outline-variant hover:bg-surface-container dark:hover:bg-surface-variant rounded-lg duration-200 ease-in-out font-label-md text-label-md group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary">settings</span>
+                Settings
+            </a>
+</div>
+<div class="mt-auto pt-4 border-t border-outline-variant space-y-1">
+<a class="flex items-center gap-3 px-3 py-2.5 text-on-surface-variant dark:text-outline-variant hover:bg-surface-container dark:hover:bg-surface-variant rounded-lg duration-200 ease-in-out font-label-md text-label-md group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary">help</span>
+                Help Center
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-error hover:bg-error-container rounded-lg duration-200 ease-in-out font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined text-[20px]">logout</span>
+                Logout
+            </a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col md:ml-64 w-full min-h-screen">
+<!-- TopNavBar -->
+<header class="docked full-width top-0 border-b border-outline-variant dark:border-outline shadow-sm flex justify-between items-center w-full px-6 py-3 h-16 bg-surface-container-lowest dark:bg-inverse-surface z-40 sticky">
+<div class="flex items-center gap-4">
+<button class="md:hidden text-on-surface-variant">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant rounded-lg text-body-md focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all w-64" placeholder="Search..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:bg-surface-container-low p-2 rounded-full transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="text-on-surface-variant hover:bg-surface-container-low p-2 rounded-full transition-colors hidden sm:block">
+<span class="material-symbols-outlined">help</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-tertiary-container overflow-hidden border border-outline-variant cursor-pointer">
+<img alt="Administrator profile" class="w-full h-full object-cover" data-alt="A professional headshot of a school administrator, middle-aged woman with glasses, smiling softly, set against a neutral, bright background consistent with a modern light-mode educational platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfeixVcc-l3UYGqxDjzA4Zt-7HKjeWJaNneA0L0wRvznl3ST64vSUIMca4iw_EIzo1qvlpkTkXSvcIpaeMuP-CClrzHgSwQWKGMIdZKZvpaSkwjrzCLgmPw08xmgDJW68w1bZ1nx5fZcjG1b02VkYcgyRjTMyz5FbAwhGpUaIVyEkVrL7Uxn17_rOM3laUl9hz3JEnWxgh_zR7CKRmkjDbLof0wWTyql1LqnYUaxzP49kIWVNwQpHvvlUm3zTyR8s5UMGOqsP-3CKK"/>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<main class="flex-1 p-container-margin overflow-x-auto bg-surface-bright">
+<!-- Header Section -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-section-gap">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Class Timetable</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Manage and view weekly schedules.</p>
+</div>
+<div class="flex items-center gap-3">
+<div class="relative">
+<select class="appearance-none bg-surface-container-lowest border border-outline-variant rounded-lg py-2 pl-4 pr-10 font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 shadow-sm cursor-pointer">
+<option>Primary 4 - Section A</option>
+<option>Primary 4 - Section B</option>
+<option>Primary 5 - Section A</option>
+<option>Primary 6 - Section A</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-outline">expand_more</span>
+</div>
+<button class="flex items-center gap-2 border border-primary text-primary hover:bg-primary-fixed/30 px-4 py-2 rounded-lg font-label-md text-label-md transition-colors shadow-sm bg-surface-container-lowest">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+                        Edit Timetable
+                    </button>
+</div>
+</div>
+<!-- Timetable Container -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant overflow-hidden">
+<div class="min-w-[800px]"> <!-- Ensure minimum width for scrolling -->
+<div class="timetable-grid">
+<!-- Headers -->
+<div class="timetable-header border-b border-outline-variant bg-surface-container-low"></div> <!-- Corner -->
+<div class="timetable-header border-b border-outline-variant font-title-lg text-on-surface">Monday</div>
+<div class="timetable-header border-b border-outline-variant font-title-lg text-on-surface">Tuesday</div>
+<div class="timetable-header border-b border-outline-variant font-title-lg text-on-surface">Wednesday</div>
+<div class="timetable-header border-b border-outline-variant font-title-lg text-on-surface">Thursday</div>
+<div class="timetable-header border-b border-outline-variant font-title-lg text-on-surface">Friday</div>
+<!-- 8:00 AM -->
+<div class="time-label border-r border-outline-variant">8:00 AM</div>
+<div class="timetable-cell">
+<div class="subject-card subj-math">
+<div>
+<h4 class="font-label-md text-label-md font-bold">Mathematics</h4>
+<p class="font-body-md text-[11px] opacity-80">Room 101</p>
+</div>
+<div class="text-right font-label-md text-[10px] mt-2">[JS]</div>
+</div>
+</div>
+<div class="timetable-cell">
+<div class="subject-card subj-english">
+<div>
+<h4 class="font-label-md text-label-md font-bold">English</h4>
+<p class="font-body-md text-[11px] opacity-80">Room 102</p>
+</div>
+<div class="text-right font-label-md text-[10px] mt-2">[MA]</div>
+</div>
+</div>
+<div class="timetable-cell">
+<div class="subject-card subj-science">
+<div>
+<h4 class="font-label-md text-label-md font-bold">Science</h4>
+<p class="font-body-md text-[11px] opacity-80">Lab A</p>
+</div>
+<div class="text-right font-label-md text-[10px] mt-2">[RK]</div>
+</div>
+</div>
+<div class="timetable-cell">
+<div class="subject-card subj-math">
+<div>
+<h4 class="font-label-md text-label-md font-bold">Mathematics</h4>
+<p class="font-body-md text-[11px] opacity-80">Room 101</p>
+</div>
+<div class="text-right font-label-md text-[10px] mt-2">[JS]</div>
+</div>
+</div>
+<div class="timetable-cell">
+<div class="subject-card subj-pe">
+<div>
+<h4 class="font-label-md text-label-md font-bold">Phys. Ed.</h4>
+<p class="font-body-md text-[11px] opacity-80">Gym</p>
+</div>
+<div class="text-right font-label-md text-[10px] mt-2">[BT]</div>
+</div>
+</div>
+<!-- 9:00 AM -->
+<div class="time-label border-r border-outline-variant">9:00 AM</div>
+<div class="timetable-cell">
+<div class="subject-card subj-science">
+<div>
+<h4 class="font-label-md text-label-md font-bold">Science</h4>
+<p class="font-body-md text-[11px] opacity-80">Lab A</p>
+</div>
+<div class="text-right font-label-md text-[10px] mt-2">[RK]</div>
+</div>
+</div>
+<div class="timetable-cell">
+<div class="subject-card subj-math">
+<div>
+<h4 class="font-label-md text-label-md font-bold">Mathematics</h4>
+<p class="font-body-md text-[11px] opacity-80">Room 101</p>
+</div>
+<div class="text-right font-label-md text-[10px] mt-2">[JS]</div>
+</div>
+</div>
+<div class="timetable-cell">
+<div class="subject-card subj-english">
+<div>
+<h4 class="font-label-md text-label-md font-bold">English</h4>
+<p class="font-body-md text-[11px] opacity-80">Room 102</p>
+</div>
+<div class="text-right font-label-md text-[10px] mt-2">[MA]</div>
+</div>
+</div>
+<div class="timetable-cell">
+<div class="subject-card subj-art">
+<div>
+<h4 class="font-label-md text-label-md font-bold">History</h4>
+<p class="font-body-md text-[11px] opacity-80">Room 105</p>
+</div>
+<div class="text-right font-label-md text-[10px] mt-2">[DL]</div>
+</div>
+</div>
+<div class="timetable-cell">
+<div class="subject-card subj-science">
+<div>
+<h4 class="font-label-md text-label-md font-bold">Science</h4>
+<p class="font-body-md text-[11px] opacity-80">Lab A</p>
+</div>
+<div class="text-right font-label-md text-[10px] mt-2">[RK]</div>
+</div>
+</div>
+<!-- 10:00 AM (Recess - Spans across) -->
+<div class="time-label border-r border-outline-variant">10:00 AM</div>
+<div class="timetable-cell" style="grid-column: 2 / span 5; background-color: #f4f3fa;">
+<div class="h-full flex items-center justify-center text-outline font-title-lg text-title-lg tracking-widest uppercase opacity-60">
+<span class="material-symbols-outlined mr-2">coffee</span> Recess
+                            </div>
+</div>
+<!-- 10:30 AM -->
+<div class="time-label border-r border-outline-variant">10:30 AM</div>
+<div class="timetable-cell">
+<div class="subject-card subj-english">
+<div>
+<h4 class="font-label-md text-label-md font-bold">English</h4>
+<p class="font-body-md text-[11px] opacity-80">Room 102</p>
+</div>
+<div class="text-right font-label-md text-[10px] mt-2">[MA]</div>
+</div>
+</div>
+<div class="timetable-cell">
+<div class="subject-card subj-art">
+<div>
+<h4 class="font-label-md text-label-md font-bold">Art</h4>
+<p class="font-body-md text-[11px] opacity-80">Studio</p>
+</div>
+<div class="text-right font-label-md text-[10px] mt-2">[CW]</div>
+</div>
+</div>
+<div class="timetable-cell">
+<div class="subject-card subj-math">
+<div>
+<h4 class="font-label-md text-label-md font-bold">Mathematics</h4>
+<p class="font-body-md text-[11px] opacity-80">Room 101</p>
+</div>
+<div class="text-right font-label-md text-[10px] mt-2">[JS]</div>
+</div>
+</div>
+<div class="timetable-cell">
+<div class="subject-card subj-science">
+<div>
+<h4 class="font-label-md text-label-md font-bold">Science</h4>
+<p class="font-body-md text-[11px] opacity-80">Lab A</p>
+</div>
+<div class="text-right font-label-md text-[10px] mt-2">[RK]</div>
+</div>
+</div>
+<div class="timetable-cell">
+<div class="subject-card subj-english">
+<div>
+<h4 class="font-label-md text-label-md font-bold">English</h4>
+<p class="font-body-md text-[11px] opacity-80">Room 102</p>
+</div>
+<div class="text-right font-label-md text-[10px] mt-2">[MA]</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>
