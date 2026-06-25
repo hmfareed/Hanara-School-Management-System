@@ -73,31 +73,26 @@ class DashboardController extends Controller implements HasMiddleware
             }
         }
 
-        // Students needing attention (overdue fees)
+        // Students needing attention (overdue fees) — only real data, no placeholders
         $attentionList = [];
-        $overdueInvoices = Invoice::with(['student.classEnrollments.classAcademicYear.schoolClass'])
-            ->where('balance', '>', 0)
-            ->where('due_date', '<', now()->toDateString())
-            ->orderBy('balance', 'desc')
-            ->take(5)
-            ->get();
+        if ($totalStudents > 0) {
+            $overdueInvoices = Invoice::with(['student.classEnrollments.classAcademicYear.schoolClass'])
+                ->where('balance', '>', 0)
+                ->where('due_date', '<', now()->toDateString())
+                ->orderBy('balance', 'desc')
+                ->take(5)
+                ->get();
 
-        foreach ($overdueInvoices as $invoice) {
-            $enrollment = $invoice->student->currentClassEnrollment();
-            $attentionList[] = [
-                'name' => $invoice->student->full_name,
-                'className' => $enrollment?->classAcademicYear?->schoolClass?->name ?? 'Unassigned',
-                'reason' => 'Fee Overdue: GH₵' . number_format($invoice->balance, 2),
-                'badge' => 'badge-error',
-                'student_id' => $invoice->student_id,
-            ];
-        }
-
-        // Add fallback sample items if list is empty to make UI look alive
-        if (empty($attentionList)) {
-            $attentionList[] = ['name' => 'Kwame Appiah', 'className' => 'Primary 4', 'reason' => 'Fee Overdue', 'badge' => 'badge-error', 'student_id' => '#'];
-            $attentionList[] = ['name' => 'Ama Mensah', 'className' => 'Nursery', 'reason' => 'Low Attendance', 'badge' => 'badge-warning', 'student_id' => '#'];
-            $attentionList[] = ['name' => 'David Osei', 'className' => 'JHS 1', 'reason' => 'Missing Grades', 'badge' => 'badge-info', 'student_id' => '#'];
+            foreach ($overdueInvoices as $invoice) {
+                $enrollment = $invoice->student->currentClassEnrollment();
+                $attentionList[] = [
+                    'name' => $invoice->student->full_name,
+                    'className' => $enrollment?->classAcademicYear?->schoolClass?->name ?? 'Unassigned',
+                    'reason' => 'Fee Overdue: GH₵' . number_format($invoice->balance, 2),
+                    'badge' => 'badge-error',
+                    'student_id' => $invoice->student_id,
+                ];
+            }
         }
 
         // Recent Activity (actual payments & audit logs)

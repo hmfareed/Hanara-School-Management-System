@@ -167,7 +167,7 @@
     </nav>
 
     <!-- Main Content Wrapper -->
-    <div class="flex-1 flex flex-col md:ml-64 w-full bg-background min-h-screen">
+    <div class="flex-1 flex flex-col md:ml-64 max-w-full bg-background min-h-screen overflow-hidden">
         <!-- Top App Bar -->
         <header class="bg-surface border-b border-outline-variant sticky top-0 z-40" id="top-app-bar">
             <div class="flex justify-between items-center w-full px-gutter py-stack-md h-[72px]">

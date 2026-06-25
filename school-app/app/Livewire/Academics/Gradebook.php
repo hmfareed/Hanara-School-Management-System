@@ -16,10 +16,10 @@ class Gradebook extends Component
     public $selectedClassId;
     public $selectedSubjectId;
     public $selectedComponentId;
-    public $scores = []; // student_id => score
+    public $scores = []; // student_id => [component_id => score] OR student_id => score
 
     protected $rules = [
-        'scores.*' => 'nullable|numeric|min:0',
+        'scores.*' => 'nullable',
     ];
 
     public function mount()
@@ -59,8 +59,10 @@ class Gradebook extends Component
 
     public function loadScores()
     {
-        if (!$this->selectedClassId || !$this->selectedSubjectId || !$this->selectedComponentId)
+        if (!$this->selectedClassId || !$this->selectedSubjectId) {
+            $this->scores = [];
             return;
+        }
 
         $user = auth()->user();
         $classAY = ClassAcademicYear::find($this->selectedClassId);
@@ -76,46 +78,102 @@ class Gradebook extends Component
             return;
         }
 
-        $existingScores = AssessmentScore::where('class_academic_year_id', $this->selectedClassId)
-            ->where('subject_id', $this->selectedSubjectId)
-            ->where('assessment_component_id', $this->selectedComponentId)
-            ->pluck('score', 'student_id')
-            ->toArray();
+        $currentYear = AcademicYear::current();
 
-        $this->scores = [];
-        foreach ($classAY->students as $student) {
-            $this->scores[$student->id] = $existingScores[$student->id] ?? '';
+        if ($this->selectedComponentId) {
+            // Single-component mode (backward compatibility for old tests)
+            $existingScores = AssessmentScore::where('class_academic_year_id', $this->selectedClassId)
+                ->where('subject_id', $this->selectedSubjectId)
+                ->where('assessment_component_id', $this->selectedComponentId)
+                ->pluck('score', 'student_id')
+                ->toArray();
+
+            $this->scores = [];
+            foreach ($classAY->students as $student) {
+                $this->scores[$student->id] = $existingScores[$student->id] ?? '';
+            }
+        } else {
+            // Multi-column mode (the new design)
+            $components = AssessmentComponent::where('academic_year_id', $currentYear->id)->get();
+            $existingScores = AssessmentScore::where('class_academic_year_id', $this->selectedClassId)
+                ->where('subject_id', $this->selectedSubjectId)
+                ->get()
+                ->groupBy('student_id');
+
+            $this->scores = [];
+            foreach ($classAY->students as $student) {
+                $studentScores = $existingScores->get($student->id) ?? collect();
+                $this->scores[$student->id] = [];
+                foreach ($components as $component) {
+                    $scoreModel = $studentScores->firstWhere('assessment_component_id', $component->id);
+                    $this->scores[$student->id][$component->id] = $scoreModel ? (float)$scoreModel->score : '';
+                }
+            }
         }
     }
 
-    public function saveScore($studentId)
+    public function saveScore($studentId, $componentId = null)
     {
         $user = auth()->user();
+        
+        // Resolve component ID
+        if ($componentId === null) {
+            $componentId = $this->selectedComponentId;
+        }
+
+        if (!$componentId) {
+            return;
+        }
+
+        $errorKey = $this->selectedComponentId 
+            ? "scores.{$studentId}" 
+            : "scores.{$studentId}.{$componentId}";
+
         if ($user->hasRole('Supervisor')) {
-            $this->addError("scores.$studentId", "Supervisors have read-only access and cannot modify grades.");
+            $this->addError($errorKey, "Supervisors have read-only access and cannot modify grades.");
             return;
         }
 
         $classAY = ClassAcademicYear::find($this->selectedClassId);
         if (!$classAY || !$user->canAccessClass($classAY->school_class_id) || !$user->canAccessSubject($this->selectedSubjectId, $classAY->school_class_id)) {
-            $this->addError("scores.$studentId", "Unauthorized to edit grades for this class/subject.");
+            $this->addError($errorKey, "Unauthorized to edit grades for this class/subject.");
             return;
         }
 
-        $component = AssessmentComponent::findOrFail($this->selectedComponentId);
-        $scoreValue = $this->scores[$studentId] ?? null;
+        $component = AssessmentComponent::findOrFail($componentId);
+        
+        // Get the score value depending on mode
+        if ($this->selectedComponentId) {
+            $scoreValue = $this->scores[$studentId] ?? null;
+        } else {
+            $scoreValue = $this->scores[$studentId][$componentId] ?? null;
+        }
 
-        if ($scoreValue === '' || $scoreValue === null) return;
+        if ($scoreValue === '' || $scoreValue === null) {
+            AssessmentScore::where([
+                'student_id' => $studentId,
+                'subject_id' => $this->selectedSubjectId,
+                'assessment_component_id' => $componentId,
+                'class_academic_year_id' => $this->selectedClassId,
+            ])->delete();
+            $this->resetErrorBag($errorKey);
+            return;
+        }
+
+        if (!is_numeric($scoreValue) || $scoreValue < 0) {
+            $this->addError($errorKey, "Invalid score.");
+            return;
+        }
 
         if ($scoreValue > $component->max_score) {
-            $this->addError("scores.$studentId", "Cannot exceed max score of {$component->max_score}");
+            $this->addError($errorKey, "Cannot exceed max score of {$component->max_score}");
             return;
         }
 
         $existing = AssessmentScore::where([
             'student_id' => $studentId,
             'subject_id' => $this->selectedSubjectId,
-            'assessment_component_id' => $this->selectedComponentId,
+            'assessment_component_id' => $componentId,
             'class_academic_year_id' => $this->selectedClassId,
         ])->first();
 
@@ -125,11 +183,11 @@ class Gradebook extends Component
             [
                 'student_id' => $studentId,
                 'subject_id' => $this->selectedSubjectId,
-                'assessment_component_id' => $this->selectedComponentId,
+                'assessment_component_id' => $componentId,
                 'class_academic_year_id' => $this->selectedClassId,
             ],
             [
-                'score' => $scoreValue ?: 0,
+                'score' => $scoreValue,
                 'recorded_by' => auth()->id(),
             ]
         );
@@ -141,7 +199,7 @@ class Gradebook extends Component
             ['score' => $score->score]
         );
 
-        $this->resetErrorBag("scores.$studentId");
+        $this->resetErrorBag($errorKey);
     }
 
     public function render(AcademicService $academicService)
@@ -161,9 +219,9 @@ class Gradebook extends Component
                     ->where('academic_year_id', $currentYear->id)
                     ->whereIn('school_class_id', $assignedClassIds)
                     ->get()
-                : collect();
+                    : collect();
 
-            if ($user->isFormTeacher() && !$user->isSubjectTeacher()) {
+            if ($user->isFormTeacher()) {
                 $subjects = Subject::orderBy('name')->get();
             } else {
                 $assignedSubjectIds = $user->assignedSubjectIds();
@@ -176,9 +234,18 @@ class Gradebook extends Component
             : collect();
 
         $students = collect();
+        $gradeScales = [];
+        $level = 'primary';
+        
         if ($this->selectedClassId) {
-            $classYear = ClassAcademicYear::find($this->selectedClassId);
-            $students = $classYear ? $classYear->students()->orderBy('last_name')->orderBy('first_name')->get() : collect();
+            $classYear = ClassAcademicYear::with('schoolClass')->find($this->selectedClassId);
+            if ($classYear) {
+                $students = $classYear->students()->orderBy('last_name')->orderBy('first_name')->get();
+                if ($classYear->schoolClass) {
+                    $level = $classYear->schoolClass->level ?? 'primary';
+                    $gradeScales = \App\Models\GradeScale::where('level', $level)->get()->toArray();
+                }
+            }
         }
 
         return view('livewire.academics.gradebook', [
@@ -186,6 +253,8 @@ class Gradebook extends Component
             'subjects' => $subjects,
             'components' => $components,
             'students' => $students,
+            'gradeScales' => $gradeScales,
+            'level' => $level,
         ]);
     }
 }

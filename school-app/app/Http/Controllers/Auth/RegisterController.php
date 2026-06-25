@@ -101,7 +101,7 @@ class RegisterController extends Controller
                 $user = User::create([
                     'name' => "{$validated['first_name']} {$validated['last_name']}",
                     'email' => $validated['email'],
-                    'password' => Hash::make($validated['password']),
+                    'password' => $validated['password'],
                     'userable_type' => Staff::class,
                     'userable_id' => $staff->id,
                     'must_change_password' => false,
@@ -171,7 +171,7 @@ class RegisterController extends Controller
                 $user = User::create([
                     'name' => "{$validated['first_name']} {$validated['last_name']}",
                     'email' => $validated['email'],
-                    'password' => Hash::make($validated['password']),
+                    'password' => $validated['password'],
                     'userable_type' => Guardian::class,
                     'userable_id' => $guardian->id,
                     'must_change_password' => false,
@@ -209,7 +209,7 @@ class RegisterController extends Controller
                 $user = User::create([
                     'name' => $student->full_name,
                     'email' => $validated['email'],
-                    'password' => Hash::make($validated['password']),
+                    'password' => $validated['password'],
                     'userable_type' => Student::class,
                     'userable_id' => $student->id,
                     'must_change_password' => false,

@@ -10,6 +10,9 @@ class StaffSeeder extends Seeder
 {
     public function run(): void
     {
+        // Only superadmin staff (Proprietor & Head Teacher) are seeded.
+        // All other staff roles (Bursar/Accounts, Front Desk, Supervisor, etc.)
+        // must self-register via the staff registration flow using a PIN code.
         $staffData = [
             [
                 'first_name' => 'Nana Akua',
@@ -40,116 +43,31 @@ class StaffSeeder extends Seeder
                 'status' => 'active',
             ],
             [
-                'first_name' => 'Kwame',
-                'last_name' => 'Boateng',
+                'first_name' => 'Adwoa',
+                'last_name' => 'Osei',
                 'other_names' => null,
-                'date_of_birth' => '1985-11-05',
-                'gender' => 'male',
-                'phone' => '+233201234567',
-                'email' => 'accounts@hanara.edu.gh',
+                'date_of_birth' => '1985-05-15',
+                'gender' => 'female',
+                'phone' => '+233244111222',
+                'email' => 'teacher@hanara.edu.gh',
                 'address' => '45 Beach Road, Takoradi',
-                'qualification' => 'BCom Accounting',
-                'date_joined' => '2018-06-01',
-                'position' => 'Bursar',
-                'status' => 'active',
-            ],
-            [
-                'first_name' => 'Ama',
-                'last_name' => 'Serwaa',
-                'other_names' => 'Osei',
-                'date_of_birth' => '1992-02-18',
-                'gender' => 'female',
-                'phone' => '+233277987654',
-                'email' => 'frontdesk@hanara.edu.gh',
-                'address' => '56 Fijai, Takoradi',
-                'qualification' => 'HND Secretaryship',
-                'date_joined' => '2020-10-01',
-                'position' => 'Front Desk Officer',
-                'status' => 'active',
-            ],
-            // Teachers (6)
-            [
-                'first_name' => 'Ekow',
-                'last_name' => 'Eshun',
-                'other_names' => null,
-                'date_of_birth' => '1988-05-14',
-                'gender' => 'male',
-                'phone' => '+233243111222',
-                'email' => 'ekow.eshun@hanara.edu.gh',
-                'address' => '15 Effia Kuma, Takoradi',
                 'qualification' => 'Diploma in Basic Education',
                 'date_joined' => '2019-09-01',
                 'position' => 'Class Teacher',
                 'status' => 'active',
             ],
             [
-                'first_name' => 'Abena',
-                'last_name' => 'Ofori',
-                'other_names' => 'Asante',
-                'date_of_birth' => '1990-07-28',
-                'gender' => 'female',
-                'phone' => '+233243333444',
-                'email' => 'abena.ofori@hanara.edu.gh',
-                'address' => '8 Kwesimintsim, Takoradi',
-                'qualification' => 'BEd Early Childhood',
-                'date_joined' => '2020-09-01',
-                'position' => 'Class Teacher',
-                'status' => 'active',
-            ],
-            [
-                'first_name' => 'Yaw',
-                'last_name' => 'Appiah',
-                'other_names' => null,
-                'date_of_birth' => '1987-03-09',
-                'gender' => 'male',
-                'phone' => '+233243555666',
-                'email' => 'yaw.appiah@hanara.edu.gh',
-                'address' => '24 Kansaworado, Takoradi',
-                'qualification' => 'Diploma in Education',
-                'date_joined' => '2018-09-01',
-                'position' => 'Class Teacher',
-                'status' => 'active',
-            ],
-            [
-                'first_name' => 'Efua',
-                'last_name' => 'Ansah',
-                'other_names' => 'Baidoo',
-                'date_of_birth' => '1993-12-01',
-                'gender' => 'female',
-                'phone' => '+233243777888',
-                'email' => 'efua.ansah@hanara.edu.gh',
-                'address' => '19 Tanokrom, Takoradi',
-                'qualification' => 'BEd Mathematics',
-                'date_joined' => '2021-09-01',
-                'position' => 'Class Teacher',
-                'status' => 'active',
-            ],
-            [
-                'first_name' => 'Kweku',
+                'first_name' => 'Kwame',
                 'last_name' => 'Mensah',
-                'other_names' => 'Agyei',
-                'date_of_birth' => '1989-10-10',
-                'gender' => 'male',
-                'phone' => '+233243999000',
-                'email' => 'kweku.mensah@hanara.edu.gh',
-                'address' => '30 New Takoradi, Takoradi',
-                'qualification' => 'BEd Science',
-                'date_joined' => '2019-09-01',
-                'position' => 'Subject Teacher',
-                'status' => 'active',
-            ],
-            [
-                'first_name' => 'Akosua',
-                'last_name' => 'Dapaah',
                 'other_names' => null,
-                'date_of_birth' => '1995-01-25',
-                'gender' => 'female',
-                'phone' => '+233244888999',
-                'email' => 'akosua.dapaah@hanara.edu.gh',
-                'address' => '12 West Line, Takoradi',
-                'qualification' => 'Diploma in Basic Education',
-                'date_joined' => '2022-09-01',
-                'position' => 'Class Teacher',
+                'date_of_birth' => '1988-11-20',
+                'gender' => 'male',
+                'phone' => '+233244333444',
+                'email' => 'subject@hanara.edu.gh',
+                'address' => '78 Fijai, Takoradi',
+                'qualification' => 'BEd Mathematics',
+                'date_joined' => '2020-09-01',
+                'position' => 'Subject Teacher',
                 'status' => 'active',
             ],
         ];
@@ -157,14 +75,46 @@ class StaffSeeder extends Seeder
         foreach ($staffData as $data) {
             $data['staff_id_number'] = Staff::generateStaffId();
             $staff = Staff::create($data);
+        }
 
-            // Assign some teachers to classes for testing
-            if ($staff->position === 'Class Teacher') {
-                // Find a class-academic-year without a teacher
-                $classAcYear = ClassAcademicYear::whereNull('class_teacher_id')->first();
-                if ($classAcYear) {
-                    $classAcYear->update(['class_teacher_id' => $staff->id]);
-                }
+        // Assign Adwoa Osei (Class Teacher) as form teacher of P1
+        $teacherStaff = Staff::where('position', 'Class Teacher')->first();
+        if ($teacherStaff) {
+            $classAY = ClassAcademicYear::whereHas('schoolClass', function ($q) {
+                $q->where('name', 'P1');
+            })->first();
+            if ($classAY) {
+                $classAY->update(['class_teacher_id' => $teacherStaff->id]);
+            }
+        }
+
+        // Assign Kwame Mensah (Subject Teacher) to subjects
+        $subjectStaff = Staff::where('position', 'Subject Teacher')->first();
+        if ($subjectStaff) {
+            $classAY1 = ClassAcademicYear::whereHas('schoolClass', function ($q) {
+                $q->where('name', 'P1');
+            })->first();
+            $classAY2 = ClassAcademicYear::whereHas('schoolClass', function ($q) {
+                $q->where('name', 'P2');
+            })->first();
+
+            $math = \App\Models\Subject::where('code', 'MATH')->first();
+            $eng = \App\Models\Subject::where('code', 'ENG')->first();
+
+            if ($classAY1 && $math) {
+                \App\Models\ClassSubjectTeacher::create([
+                    'class_academic_year_id' => $classAY1->id,
+                    'subject_id' => $math->id,
+                    'staff_id' => $subjectStaff->id,
+                ]);
+            }
+
+            if ($classAY2 && $eng) {
+                \App\Models\ClassSubjectTeacher::create([
+                    'class_academic_year_id' => $classAY2->id,
+                    'subject_id' => $eng->id,
+                    'staff_id' => $subjectStaff->id,
+                ]);
             }
         }
     }

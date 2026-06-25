@@ -26,6 +26,24 @@
                     </div>
                 @endif
 
+                @if(session('success'))
+                    <div class="p-3 bg-success-container text-on-success-container rounded-xl text-body-md" id="login-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                @if(session('warning'))
+                    <div class="p-3 bg-warning-container text-warning rounded-xl text-body-md" id="login-warning">
+                        {{ session('warning') }}
+                    </div>
+                @endif
+
+                @if(session('status'))
+                    <div class="p-3 bg-info-container text-info rounded-xl text-body-md" id="login-status">
+                        {{ session('status') }}
+                    </div>
+                @endif
+
                 <!-- Email -->
                 <div>
                     <label class="form-label" for="email">Email address</label>

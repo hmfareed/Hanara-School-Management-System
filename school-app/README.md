@@ -79,17 +79,16 @@ A production-grade, high-fidelity school management system tailored for Hanara S
 
 ## Demo Credentials (Seeded Accounts)
 
-All accounts are seeded with the default password **`password123`** and have `must_change_password` set to `true` to demonstrate first-login behavior.
+Only superadmin accounts are seeded. All other staff roles (Accountant/Bursar, Front Desk, Supervisor, Class Teacher, Subject Teacher) must **register themselves** via the staff registration page using a valid PIN code issued by the Proprietor.
+
+All seeded accounts use the default password **`password123`** and have `must_change_password` set to `true` to demonstrate first-login behavior.
 
 | Role | Email | Profile Name |
 |---|---|---|
 | **Proprietor** | `proprietor@hanara.edu.gh` | Nana Akua Mensah |
 | **Head Teacher** | `headteacher@hanara.edu.gh` | Kofi Addo |
-| **Bursar (Accounts)** | `accounts@hanara.edu.gh` | Kwame Boateng |
-| **Front Desk** | `frontdesk@hanara.edu.gh` | Ama Serwaa |
-| **Class Teacher** | `ekow.eshun@hanara.edu.gh` | Ekow Eshun |
-| **Subject Teacher** | `kweku.mensah@hanara.edu.gh` | Kweku Mensah |
-| **Parent (Sample)** | `parent@example.com` | (Seeded Guardian Name) |
+
+> **Note:** To test other staff roles, generate a Staff Registration PIN from the Proprietor dashboard → Staff section, then register a new account at `/register` selecting the desired position.
 
 ---
 

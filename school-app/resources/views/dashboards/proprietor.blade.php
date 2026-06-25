@@ -32,10 +32,12 @@
         </div>
         <div class="flex items-baseline gap-2 mt-2">
             <h3 class="font-display-lg text-display-lg text-on-background">{{ $totalStudents }}</h3>
+            @if($totalStudents > 0)
             <div class="flex items-center text-[#166534] bg-[#dcfce7] px-2 py-0.5 rounded text-xs font-medium">
                 <span class="material-symbols-outlined text-[14px]">trending_up</span>
                 <span>+{{ rand(5, 15) }}</span>
             </div>
+            @endif
         </div>
     </div>
 
@@ -80,8 +82,8 @@
 
 <!-- Middle Section: Two-Column -->
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 mb-section-gap">
-    <!-- Left Column: Enrollment by Class Chart (60%) -->
-    <div class="lg:col-span-7 card flex flex-col overflow-hidden" id="chart-enrollment">
+    <!-- Left Column: Enrollment by Class Chart (full width when no students, 60% otherwise) -->
+    <div class="{{ $totalStudents > 0 ? 'lg:col-span-7' : 'lg:col-span-12' }} card flex flex-col overflow-hidden" id="chart-enrollment">
         <div class="card-header flex justify-between items-center">
             <h3 class="font-title-lg text-title-lg text-on-background">Enrollment by Class</h3>
             <button class="text-primary font-label-md text-label-md hover:underline">View Full Report</button>
@@ -124,6 +126,7 @@
         </div>
     </div>
 
+    @if($totalStudents > 0)
     <!-- Right Column: Attention Card (40%) -->
     <div class="lg:col-span-5 card overflow-hidden flex flex-col" id="card-attention">
         <div class="p-4 border-b border-outline-variant flex justify-between items-center bg-surface-container-low/50">
@@ -134,22 +137,28 @@
         </div>
         <div class="flex-1 overflow-y-auto">
             <ul class="divide-y divide-outline-variant">
-                @foreach($attentionList as $item)
+                @forelse($attentionList as $item)
                     <li class="p-4 hover:bg-surface-container-low transition-colors flex justify-between items-center cursor-pointer"
-                        @if($item['student_id'] !== '#') onclick="window.location.href='{{ route('students.show', $item['student_id']) }}'" @endif>
+                        onclick="window.location.href='{{ route('students.show', $item['student_id']) }}'">
                         <div>
                             <p class="font-body-md text-body-md font-medium text-on-background">{{ $item['name'] }}</p>
                             <p class="font-label-md text-label-md text-on-surface-variant">{{ $item['className'] }}</p>
                         </div>
                         <span class="{{ $item['badge'] }}">{{ $item['reason'] }}</span>
                     </li>
-                @endforeach
+                @empty
+                    <li class="p-6 text-center text-on-surface-variant">
+                        <span class="material-symbols-outlined text-[40px] block mb-2 text-outline">check_circle</span>
+                        <p class="font-body-md text-body-md">No students need attention right now.</p>
+                    </li>
+                @endforelse
             </ul>
         </div>
         <div class="p-3 border-t border-outline-variant text-center bg-surface-container-low/30">
             <button class="text-primary font-label-md text-label-md font-medium hover:underline">View All Alerts</button>
         </div>
     </div>
+    @endif
 </div>
 
 <!-- Bottom Section: Recent Activity -->

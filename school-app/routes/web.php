@@ -312,3 +312,26 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::post('/billing/pay/webhook', [\App\Http\Controllers\BillingController::class, 'paystackWebhook'])->name('billing.pay.webhook');
+
+Route::get('/vercel-migrate', function () {
+    $secret = env('MIGRATION_SECRET');
+    if (!$secret || request('secret') !== $secret) {
+        abort(403, 'Unauthorized: Invalid or missing MIGRATION_SECRET');
+    }
+    
+    try {
+        $status = \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
+        $output = \Illuminate\Support\Facades\Artisan::output();
+        return response()->json([
+            'status' => 'success',
+            'exit_code' => $status,
+            'output' => $output
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'status' => 'error',
+            'message' => $e->getMessage()
+        ], 500);
+    }
+});
+

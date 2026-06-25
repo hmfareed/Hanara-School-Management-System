@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             SettingsSeeder::class,
             FeeItemSeeder::class,
             GradeScaleSeeder::class,
+            TeacherAssignmentSeeder::class,
         ]);
     }
 }
